@@ -11,8 +11,7 @@ class MessageList extends Component {
       id    : PropTypes.string.isRequired,
       title : PropTypes.string,
       texts : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string,
-        updatedAt : PropTypes.number.isRequired
+        text : PropTypes.string
       }))
     })).isRequired
   };

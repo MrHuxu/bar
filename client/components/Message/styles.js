@@ -2,18 +2,33 @@ export default {
   container : {
   },
 
-  header: {
-    margin: '0 0 5px 0'
+  header : {
+    margin : '0 0 5px 0'
   },
 
-  title: {
-    fontFamily: 'Lato, "Helvetica Neue", Arial, Helvetica, sans-serif',
-    fontSize: '20px'
+  subHeader : {
+    margin : '8px 0 0 0'
   },
 
-  time: {
-    margin: '0 0 0 15px',
-    color: '#aaa'
+  title : {
+    fontFamily : 'Lato, "Helvetica Neue", Arial, Helvetica, sans-serif',
+    fontSize   : '20px'
+  },
+
+  actionLink : {
+    cursor  : 'pointer',
+    display : 'inline-block',
+    margin  : '0 .2em 0 0.9em',
+    color   : 'rgba(0,0,0,.4)',
+
+    ':hover' : {
+      color : 'rgba(0,0,0,.8)'
+    }
+  },
+
+  time : {
+    margin : '0 0 0 15px',
+    color  : '#aaa'
   },
 
   global : {

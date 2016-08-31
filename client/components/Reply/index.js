@@ -8,4 +8,4 @@ class Reply extends Component {
   }
 };
 
-export default Reply
+export default Reply;
