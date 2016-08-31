@@ -13,11 +13,19 @@ export default (props) => {
   const updatedAt = `@ ${data.texts[data.texts.length - 1].createdAt}`;
 
   const textArea = data.texts.reduce((prev, cur, index, arr) => {
-    if (index) {
-      prev.push(<Divider />);
-    }
-    prev.push(<p> {cur.text} </p>);
-
+    prev.push(
+      <div className= {`ui ${index ? 'secondary' : ''} segment`}>
+        {index ? null : 
+          <h4 className="ui header">
+            <div className="content">
+              {data.title}
+              <div className="sub header">{updatedAt}</div>
+            </div>
+          </h4>
+        }
+        <p> {cur.text} </p>
+      </div>
+    );
     return prev;
   }, []);
 
@@ -29,18 +37,9 @@ export default (props) => {
       style = {styles.container}
     >
       <Style rules = {styles.global} />
-      <Card>
-        <CardText>
-          <div style={styles.header}>
-            <span style={styles.title}> {data.title} </span>
-            <span style = {styles.time}> {updatedAt} </span>
-          </div>
-          <div>
-            {textArea}
-          </div>
-        </CardText>
-      </Card>
-      {replyArea}
+      <div className="ui piled segments">
+        {textArea}
+      </div>
     </div>
   );
 };

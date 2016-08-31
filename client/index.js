@@ -1,6 +1,3 @@
-import $ from 'jquery';
-window.jQuery = $; // Assure it's available globally.
-
 import React from 'react';
 import { StyleRoot } from 'radium';
 import { render } from 'react-dom';
