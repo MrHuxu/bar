@@ -1,23 +1,24 @@
 import React from 'react';
-import { Card, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 
-import styles from './styles';
+import styles from '../styles/reply';
 
-export default (props) => {
-  const { fakeId, data, reply } = props;
+export default function renderReply (params) {
+  const { fakeId, data, reply } = params;
 
   return (
-    <div className = 'ui comments'>
+    <div
+      key = {`message-${params.id}-comment-${fakeId}`}
+      className = 'ui comments'
+    >
       <div className = 'comment'>
         <div className = 'content'>
           <span className = 'ui circular label'>
             {`#${fakeId}`}
           </span>
-          {data.replyTo ?
-            <span className = 'ui circular label'>
+          { data.replyTo
+            ? <span className = 'ui circular label'>
               to #{data.replyTo}
-            </span> : null}
+            </span> : null }
           <span className = 'metadata'>
             <div className = 'date'>{data.createdAt.toLocaleString()}</div>
           </span>
@@ -39,4 +40,4 @@ export default (props) => {
       </div>
     </div>
   );
-};
+}

@@ -1,14 +1,9 @@
-# My Blog
-
-![](https://travis-ci.org/MrHuxu/blog.svg?branch=master)
+# My Bar
 
 ## Description
 
-My best blog app so far.
+Create, append and reply a message,  
+But edit or delete is not allowed;  
 
-## Requirements
-
-1. Linux or Mac OS 
-2. Node.js (5.0.0 or higher)
-3. Redis
-4. Git
+Take care of every word you input,  
+In a bar, what is done is done.

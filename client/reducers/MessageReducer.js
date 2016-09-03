@@ -35,15 +35,16 @@ export function message (state = {
   }
 }, action) {
   var copy = Object.assign({}, state);
+  if (action.content) {
+    var { id, content } = action.content;
+  }
 
   switch (action.type) {
     case APPEND_MESSAGE:
-      var { id, content } = action.content;
       copy.entities[id].texts.push(content);
       break;
 
     case REPLY_MESSAGE:
-      var { id, content } = action.content;
       copy.entities[id].replies.push(content);
       break;
 
