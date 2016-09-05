@@ -1,9 +1,10 @@
 export const CREATE_POST = 'CREATE_POST';
-export function createPost (content) {
+export function createPost (title, content) {
   return {
     type    : CREATE_POST,
     content : {
-      content : content
+      newTitle   : title,
+      newContent : content
     }
   };
 }

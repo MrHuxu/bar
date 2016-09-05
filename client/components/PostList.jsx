@@ -27,7 +27,7 @@ class PostList extends Component {
   render () {
     const { ids, posts } = this.props;
 
-    const postCards = ids.map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
+    const postCards = ids.reverse().map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
 
     return (
       <div style = {styles.container}>

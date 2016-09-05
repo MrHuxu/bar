@@ -1,4 +1,8 @@
-import { APPEND_POST, REPLY_POST } from '../actions/PostActions';
+import {
+  CREATE_POST,
+  APPEND_POST,
+  REPLY_POST
+} from '../actions/PostActions';
 
 export function post (state = {
   ids      : ['1', '2'],
@@ -35,11 +39,27 @@ export function post (state = {
   }
 }, action) {
   var copy = Object.assign({}, state);
+  copy.entities = Object.assign({}, state.entities);
   if (action.content) {
-    var { id, content } = action.content;
+    var { id, content, newTitle, newContent } = action.content;
   }
 
   switch (action.type) {
+    case CREATE_POST:
+      let newId = (copy.ids.length + 1).toString();
+      let newEntity = {
+        id    : newId,
+        title : newTitle,
+        texts : [{
+          text      : newContent,
+          createdAt : new Date()
+        }],
+        replies : []
+      };
+      copy.ids.push(newId);
+      copy.entities[newId] = newEntity;
+      break;
+
     case APPEND_POST:
       copy.entities[id].texts.push(content);
       break;

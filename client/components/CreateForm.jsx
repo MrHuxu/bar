@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import { createPost } from '../actions/PostActions';
 import styles from '../styles/create-form';
 
 class CreateForm extends Component {
@@ -23,6 +24,10 @@ class CreateForm extends Component {
   }
 
   _submit () {
+    this.props.dispatch(createPost(
+      this.refs.postTitle.value,
+      this.refs.postContent.value
+    ));
     this._changeEditStatus(false);
   }
 
@@ -44,7 +49,17 @@ class CreateForm extends Component {
           ? <div style = {styles.form}>
             <div className = 'ui form'>
               <div className = 'field'>
-                <textarea />
+                <input
+                  ref = 'postTitle'
+                  type = 'text'
+                  placeholder = 'Title'
+                />
+              </div>
+              <div className = 'field'>
+                <textarea
+                  ref = 'postContent'
+                  placeholder = 'Content'
+                />
               </div>
               <button
                 className = 'ui button'
