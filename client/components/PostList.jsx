@@ -41,7 +41,7 @@ class PostList extends Component {
     return (
       <div style = {styles.container}>
         <CreateForm />
-        {this.renderPosts.call(this)}
+        {this.renderPosts()}
       </div>
     );
   }
