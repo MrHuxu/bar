@@ -11,7 +11,7 @@ export default function renderHead (params) {
           className = 'sub header'
           style = {styles.subHeader}
         >
-          {`Updated at ${params.texts[params.texts.length - 1].createdAt.toLocaleString()}`}
+          {`Updated at ${params.updatedAt.toLocaleString()}`}
           <a
             key = {`post-${params.id}-append`}
             style = {styles.actionLink}

@@ -24,15 +24,24 @@ class PostList extends Component {
     })).isRequired
   };
 
-  render () {
+  renderPosts () {
     const { ids, posts } = this.props;
 
-    const postCards = ids.reverse().map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
+    for (let key in posts) {
+      let post = posts[key];
+      post.updatedAt = new Date(Math.max.apply(null, post.texts.map(text => text.createdAt).concat(post.replies.map(reply => reply.createdAt))));
+    }
 
+    return ids.sort((id1, id2) => {
+      return posts[id1].updatedAt > posts[id2].updatedAt ? -1 : 1;
+    }).map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
+  }
+
+  render () {
     return (
       <div style = {styles.container}>
         <CreateForm />
-        {postCards}
+        {this.renderPosts.call(this)}
       </div>
     );
   }
