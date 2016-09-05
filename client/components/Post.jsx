@@ -41,13 +41,57 @@ class Post extends Component {
 
   componentDidUpdate (prevProps, prevState) {
     const { appendForm, replyForm } = this.refs;
-    if (appendForm) appendForm.focus();
-    if (replyForm) replyForm.focus();
+    if (appendForm) this._bindEventsToAppendForm();
+    if (replyForm) this._bindEventsToReplyForm();
+  }
+
+  _bindEventsToAppendForm () {
+    this.refs.appendForm.onfocus = (e) => {
+      this.refs.appendForm.onkeypress = (e) => {
+        switch (e.keyCode) {
+          case 13:
+            this._append();
+            break;
+
+          case 27:
+            this._quitAppend();
+            break;
+
+          default:
+            break;
+        }
+      };
+    };
+    this.refs.appendForm.focus();
+  }
+
+  _bindEventsToReplyForm () {
+    this.refs.replyForm.onfocus = (e) => {
+      this.refs.replyForm.onkeypress = (e) => {
+        switch (e.keyCode) {
+          case 13:
+            this._reply();
+            break;
+
+          case 27:
+            this._quitReply();
+            break;
+
+          default:
+            break;
+        }
+      };
+    };
+    this.refs.replyForm.focus();
   }
 
   _enterAppend () {
     this.setState({
-      appending : true
+      appending : true,
+      reply     : {
+        replying : false,
+        replyTo  : null
+      }
     });
   }
 
@@ -69,18 +113,19 @@ class Post extends Component {
 
   _enterReply (id) {
     this.setState({
-      reply : {
+      appending : false,
+      reply     : {
         replying : true,
         replyTo  : id
       }
     });
   }
 
-  _reply (replyTo) {
+  _reply () {
     const { dispatch, data } = this.props;
 
     dispatch(replyPost(data.id, {
-      replyTo,
+      replyTo   : this.state.reply.replyTo,
       text      : this.refs.replyForm.value,
       createdAt : new Date()
     }));
@@ -90,8 +135,8 @@ class Post extends Component {
   _quitReply () {
     this.setState({
       reply : {
-        replying : false
-
+        replying : false,
+        replyTo  : null
       }
     });
   }

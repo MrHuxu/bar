@@ -20,7 +20,7 @@ export default function renderReplyForm (params, replyTo) {
       </button>
       <button
         className = 'ui button'
-        onClick = {this._reply.bind(this, replyTo)}
+        onClick = {this._reply.bind(this)}
       >
         <i className = 'save icon' />
       </button>

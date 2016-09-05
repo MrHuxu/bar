@@ -1,6 +1,6 @@
 export default {
-  container: {
-    margin: '0 0 0 5px'
+  container : {
+    margin : '0 0 0 5px'
   },
 
   actionContainer : {
