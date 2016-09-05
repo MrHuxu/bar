@@ -2,6 +2,7 @@ import React from 'react';
 
 import renderHead from './PostHeader';
 import renderAppendForm from './AppendForm';
+import styles from '../styles/post-text';
 
 export default function renderText (params) {
   var textArea = params.texts.reduce((prev, cur, index, arr) => {
@@ -15,7 +16,7 @@ export default function renderText (params) {
           ? <span className = 'ui label'>
             {cur.createdAt.toLocaleString()}
           </span> : null }
-        <span> {cur.text} </span>
+        <span style = {styles.text}> {cur.text} </span>
       </div>
     );
     return prev;

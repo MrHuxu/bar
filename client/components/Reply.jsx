@@ -9,6 +9,7 @@ export default function renderReply (params) {
     <div
       key = {`post-${params.id}-comment-${fakeId}`}
       className = 'ui comments'
+      style = {styles.container}
     >
       <div className = 'comment'>
         <div className = 'content'>

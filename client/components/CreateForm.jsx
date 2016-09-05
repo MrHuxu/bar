@@ -42,7 +42,7 @@ class CreateForm extends Component {
           onClick = {this._changeEditStatus.bind(this)}
         >
           <i className = 'add square icon' />
-          Add Post
+          <span>Add Post</span>
         </button>
 
         { this.state.editing
