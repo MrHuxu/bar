@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 
 import styles from '../styles/reply';
 
@@ -21,7 +22,7 @@ export default function renderReply (params) {
               to #{data.replyTo}
             </span> : null }
           <span className = 'metadata'>
-            <div className = 'date'>{data.createdAt.toLocaleString()}</div>
+            <div className = 'date'>{dateFormat(data.updatedAt, "d/m/yyyy, H:MM:ss")}</div>
           </span>
           <span
             className = 'actions'
@@ -34,7 +35,10 @@ export default function renderReply (params) {
               Reply
             </a>
           </span>
-          <div className = 'text'>
+          <div
+            className = 'text'
+            style = {styles.text}
+          >
             {data.text}
           </div>
         </div>

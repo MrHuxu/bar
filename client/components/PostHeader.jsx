@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 
 import styles from '../styles/post';
 
@@ -11,7 +12,7 @@ export default function renderHead (params) {
           className = 'sub header'
           style = {styles.subHeader}
         >
-          {`Updated at ${params.updatedAt.toLocaleString()}`}
+          {dateFormat(params.updatedAt, "d/m/yyyy, H:MM:ss")}
           <a
             key = {`post-${params.id}-append`}
             style = {styles.actionLink}

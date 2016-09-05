@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 
 import renderHead from './PostHeader';
 import renderAppendForm from './AppendForm';
@@ -14,7 +15,7 @@ export default function renderText (params) {
         { index ? null : renderHead.call(this, params) }
         { index
           ? <span className = 'ui label'>
-            {cur.createdAt.toLocaleString()}
+            {dateFormat(cur.createdAt, "d/m/yyyy, H:MM:ss")}
           </span> : null }
         <span style = {styles.text}> {cur.text} </span>
       </div>
