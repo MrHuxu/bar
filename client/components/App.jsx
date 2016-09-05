@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import MessageList from './MessageList';
+import PostList from './PostList';
 import styles from '../styles/app';
 
 class App extends Component {
@@ -12,7 +12,8 @@ class App extends Component {
           <p> In a bar, what is done is done </p>
         </div>
         <div style = {styles.rightPanel}>
-          <MessageList />
+          <PostList
+         />
         </div>
       </div>
     );

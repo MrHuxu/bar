@@ -2,7 +2,7 @@
 
 ## Description
 
-Create, append and reply a message,  
+Create, append and reply a post,  
 But edit or delete is not allowed;  
 
 Take care of every word you input,  

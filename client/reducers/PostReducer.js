@@ -1,6 +1,6 @@
-import { APPEND_MESSAGE, REPLY_MESSAGE } from '../actions/MessageActions';
+import { APPEND_POST, REPLY_POST } from '../actions/PostActions';
 
-export function message (state = {
+export function post (state = {
   ids      : ['1', '2'],
   entities : {
     '1' : {
@@ -40,11 +40,11 @@ export function message (state = {
   }
 
   switch (action.type) {
-    case APPEND_MESSAGE:
+    case APPEND_POST:
       copy.entities[id].texts.push(content);
       break;
 
-    case REPLY_MESSAGE:
+    case REPLY_POST:
       copy.entities[id].replies.push(content);
       break;
 

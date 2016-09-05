@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Message from './Message';
-import styles from '../styles/message-list';
+import CreateForm from './CreateForm';
+import Post from './Post';
+import styles from '../styles/post-list';
 
-class MessageList extends Component {
+class PostList extends Component {
   static propTypes = {
     dispatch : PropTypes.func.isRequired,
     ids      : PropTypes.arrayOf(PropTypes.string).isRequired,
-    messages : PropTypes.objectOf(PropTypes.shape({
+    posts    : PropTypes.objectOf(PropTypes.shape({
       id    : PropTypes.string.isRquired,
       title : PropTypes.string.isRequired,
       texts : PropTypes.arrayOf(PropTypes.shape({
@@ -24,13 +25,14 @@ class MessageList extends Component {
   };
 
   render () {
-    const { ids, messages } = this.props;
+    const { ids, posts } = this.props;
 
-    const messageCards = ids.map(id => <Message key = {`message-${id}`} data = {messages[id]} />);
+    const postCards = ids.map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
 
     return (
       <div style = {styles.container}>
-        {messageCards}
+        <CreateForm />
+        {postCards}
       </div>
     );
   }
@@ -38,9 +40,9 @@ class MessageList extends Component {
 
 var mapStateToProps = (state) => {
   return {
-    ids      : state.message.ids,
-    messages : state.message.entities
+    ids   : state.post.ids,
+    posts : state.post.entities
   };
 };
 
-export default connect(mapStateToProps)(MessageList);
+export default connect(mapStateToProps)(PostList);

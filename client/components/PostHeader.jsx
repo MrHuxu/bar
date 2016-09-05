@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../styles/message';
+import styles from '../styles/post';
 
 export default function renderHead (params) {
   return (
@@ -13,14 +13,14 @@ export default function renderHead (params) {
         >
           {`Updated at ${params.texts[params.texts.length - 1].createdAt.toLocaleString()}`}
           <a
-            key = {`message-${params.id}-append`}
+            key = {`post-${params.id}-append`}
             style = {styles.actionLink}
             onClick = {this._enterAppend.bind(this)}
           >
             Append
           </a>
           <a
-            key = {`message-${params.id}-reply`}
+            key = {`post-${params.id}-reply`}
             style = {styles.actionLink}
             onClick = {this._enterReply.bind(this, null)}
           >

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import renderHead from './MessageHeader';
-import renderAppendForm from './MessageAppendForm';
+import renderHead from './PostHeader';
+import renderAppendForm from './AppendForm';
 
 export default function renderText (params) {
   var textArea = params.texts.reduce((prev, cur, index, arr) => {
     prev.push(
       <div
-        key = {`message-${index}-segment`}
+        key = {`post-${index}-segment`}
         className = {`ui ${index ? 'secondary' : ''} segment`}
       >
         { index ? null : renderHead.call(this, params) }

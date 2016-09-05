@@ -4,7 +4,7 @@ export default function renderAppendForm (params) {
   return (
     <div
       className = 'ui secondary segment'
-      key = {`message-${params.id}-append`}
+      key = {`post-${params.id}-append`}
     >
       <div className = 'ui fluid left labeled action input'>
         <input

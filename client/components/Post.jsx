@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Radium, { Style } from 'radium';
 
-import renderText from './MessageText';
+import renderText from './PostText';
 import renderReply from './Reply';
 import renderReplyForm from './ReplyForm';
-import { appendMessage, replyMessage } from '../actions/MessageActions';
-import styles from '../styles/message';
+import { appendPost, replyPost } from '../actions/PostActions';
+import styles from '../styles/post';
 
 @Radium
-class Message extends Component {
+class Post extends Component {
   static propTypes = {
     dispatch : PropTypes.func.isRequired,
     data     : PropTypes.shape({
@@ -54,7 +54,7 @@ class Message extends Component {
   _append () {
     const { dispatch, data } = this.props;
 
-    dispatch(appendMessage(data.id, {
+    dispatch(appendPost(data.id, {
       text      : this.refs.appendForm.value,
       createdAt : new Date()
     }));
@@ -79,7 +79,7 @@ class Message extends Component {
   _reply (replyTo) {
     const { dispatch, data } = this.props;
 
-    dispatch(replyMessage(data.id, {
+    dispatch(replyPost(data.id, {
       replyTo,
       text      : this.refs.replyForm.value,
       createdAt : new Date()
@@ -116,18 +116,19 @@ class Message extends Component {
     const { data } = this.props;
 
     return (
-      <div
-        className = 'timeline-item'
-        style = {styles.container}
-      >
+      <div style = {styles.container}>
         <Style rules = {styles.global} />
-        <div className = 'ui piled segments'>
-          {renderText.call(this, data)}
+        <div className = 'timeline-item'>
+          <div className = 'ui piled segments'>
+            {renderText.call(this, data)}
+          </div>
         </div>
-        {this.renderReplyArea(data)}
+        <div style = {styles.replyArea}>
+          {this.renderReplyArea(data)}
+        </div>
       </div>
     );
   }
 }
 
-export default connect()(Message);
+export default connect()(Post);

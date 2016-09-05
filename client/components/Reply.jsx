@@ -7,7 +7,7 @@ export default function renderReply (params) {
 
   return (
     <div
-      key = {`message-${params.id}-comment-${fakeId}`}
+      key = {`post-${params.id}-comment-${fakeId}`}
       className = 'ui comments'
     >
       <div className = 'comment'>

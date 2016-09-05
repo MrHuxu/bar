@@ -3,7 +3,7 @@ import React from 'react';
 export default function renderReplyForm (params, replyTo) {
   return (
     <div
-      key = {`message-${params.id}-reply-${replyTo}`}
+      key = {`post-${params.id}-reply-${replyTo}`}
       className = 'ui fluid left labeled action input'
     >
       {replyTo ? <div className = 'ui label'>{`to #${replyTo}`}</div> : null}

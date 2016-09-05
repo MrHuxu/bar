@@ -1,10 +1,10 @@
 import thunkMiddleware from 'redux-thunk';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 
-import { message } from './reducers/MessageReducer';
+import { post } from './reducers/PostReducer';
 
 const rootReducer = combineReducers({
-  message
+  post
 });
 
 export const rootStore = compose(

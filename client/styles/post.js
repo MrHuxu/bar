@@ -1,5 +1,10 @@
 export default {
   container : {
+    padding : '15px 0 15px 0'
+  },
+
+  replyArea : {
+    padding : '10px 0 10px 18px'
   },
 
   header : {
