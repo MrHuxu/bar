@@ -10,7 +10,7 @@ class PostList extends Component {
   static propTypes = {
     dispatch : PropTypes.func.isRequired,
     ids      : PropTypes.arrayOf(PropTypes.string).isRequired,
-    posts    : PropTypes.objectOf(PropTypes.shape({
+    entities : PropTypes.objectOf(PropTypes.shape({
       id      : PropTypes.string.isRquired,
       title   : PropTypes.string.isRequired,
       appends : PropTypes.arrayOf(PropTypes.shape({
@@ -30,8 +30,9 @@ class PostList extends Component {
   }
 
   renderPosts () {
-    const { ids, posts } = this.props;
+    const { ids, entities } = this.props;
 
+    var posts = entities.toJS();
     for (let key in posts) {
       let post = posts[key];
       post.updatedAt = new Date(Math.max.apply(null, post.appends.map(text => text.createdAt).concat(post.createdAt).concat(post.replies.map(reply => reply.createdAt))));
@@ -54,8 +55,8 @@ class PostList extends Component {
 
 var mapStateToProps = (state) => {
   return {
-    ids   : state.post.ids,
-    posts : state.post.entities
+    ids      : state.post.ids,
+    entities : state.post.entities
   };
 };
 

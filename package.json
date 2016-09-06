@@ -33,6 +33,7 @@
     "dateformat": "^1.0.12",
     "ejs": "^2.5.1",
     "file-loader": "^0.9.0",
+    "immutable": "^3.8.1",
     "jquery": "^3.1.0",
     "marked": "^0.3.5",
     "material-ui": "^0.15.4",
