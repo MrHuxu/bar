@@ -5,7 +5,7 @@ import Radium, { Style } from 'radium';
 import renderText from './PostText';
 import renderReply from './Reply';
 import renderReplyForm from './ReplyForm';
-import { appendPost, replyPost } from '../actions/PostActions';
+import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
 import styles from '../styles/post';
 
 @Radium
@@ -13,9 +13,11 @@ class Post extends Component {
   static propTypes = {
     dispatch : PropTypes.func.isRequired,
     data     : PropTypes.shape({
-      id    : PropTypes.string.isRquired,
-      title : PropTypes.string.isRequired,
-      texts : PropTypes.arrayOf(PropTypes.shape({
+      id        : PropTypes.string.isRquired,
+      title     : PropTypes.string.isRequired,
+      content   : PropTypes.string.isRequired,
+      createdAt : PropTypes.object.isRequired,
+      appends   : PropTypes.arrayOf(PropTypes.shape({
         text      : PropTypes.string.isRequired,
         createdAt : PropTypes.object.isRequired
       })).isRequired,
@@ -98,10 +100,7 @@ class Post extends Component {
   _append () {
     const { dispatch, data } = this.props;
 
-    dispatch(appendPost(data.id, {
-      text      : this.refs.appendForm.value,
-      createdAt : new Date()
-    }));
+    dispatch(appendPostAjax(data.id, this.refs.appendForm.value));
     this._quitAppend();
   }
 
@@ -124,10 +123,9 @@ class Post extends Component {
   _reply () {
     const { dispatch, data } = this.props;
 
-    dispatch(replyPost(data.id, {
-      replyTo   : this.state.reply.replyTo,
-      text      : this.refs.replyForm.value,
-      createdAt : new Date()
+    dispatch(replyPostAjax(data.id, {
+      replyTo : this.state.reply.replyTo,
+      text    : this.refs.replyForm.value
     }));
     this._quitReply();
   }

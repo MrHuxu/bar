@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { createPost } from '../actions/PostActions';
+import { createPostAjax } from '../actions/PostActions';
 import styles from '../styles/create-form';
 
 class CreateForm extends Component {
@@ -24,7 +24,7 @@ class CreateForm extends Component {
   }
 
   _submit () {
-    this.props.dispatch(createPost(
+    this.props.dispatch(createPostAjax(
       this.refs.postTitle.value,
       this.refs.postContent.value
     ));

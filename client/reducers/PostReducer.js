@@ -8,9 +8,11 @@ export function post (state = {
   ids      : ['1', '2'],
   entities : {
     '1' : {
-      id    : '1',
-      title : 'title 1',
-      texts : [{
+      id        : '1',
+      title     : 'title 1',
+      content   : 'test content 1',
+      createdAt : new Date(),
+      appends   : [{
         text      : 'text 1',
         createdAt : new Date()
       }, {
@@ -20,9 +22,11 @@ export function post (state = {
       replies : []
     },
     '2' : {
-      id    : '2',
-      title : 'title 2',
-      texts : [{
+      id        : '2',
+      title     : 'title 2',
+      content   : 'test content 2',
+      createdAt : new Date(),
+      appends   : [{
         text      : 'text 3',
         createdAt : new Date()
       }],
@@ -40,32 +44,34 @@ export function post (state = {
 }, action) {
   var copy = Object.assign({}, state);
   copy.entities = Object.assign({}, state.entities);
-  if (action.content) {
-    var { id, content, newTitle, newContent } = action.content;
-  }
+  const { type, content } = action;
 
-  switch (action.type) {
+  switch (type) {
     case CREATE_POST:
-      let newId = (copy.ids.length + 1).toString();
-      let newEntity = {
-        id    : newId,
-        title : newTitle,
-        texts : [{
-          text      : newContent,
-          createdAt : new Date()
-        }],
-        replies : []
+      copy.ids.push(content.ID);
+      copy.entities[content.ID] = {
+        id        : content.ID,
+        title     : content.Title,
+        content   : content.Content,
+        createdAt : new Date(content.CreatedAt),
+        appends   : [],
+        replies   : []
       };
-      copy.ids.push(newId);
-      copy.entities[newId] = newEntity;
       break;
 
     case APPEND_POST:
-      copy.entities[id].texts.push(content);
+      copy.entities[content.PostID].appends.push({
+        text      : content.Text,
+        createdAt : new Date(content.CreatedAt)
+      });
       break;
 
     case REPLY_POST:
-      copy.entities[id].replies.push(content);
+      copy.entities[content.PostID].replies.push({
+        text      : content.Text,
+        replyTo   : content.ReplyTo,
+        createdAt : new Date(content.CreatedAt)
+      });
       break;
 
     default:

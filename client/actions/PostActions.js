@@ -1,32 +1,81 @@
 export const CREATE_POST = 'CREATE_POST';
-export function createPost (title, content) {
+export function createPost (newPost) {
   return {
     type    : CREATE_POST,
-    content : {
-      newTitle   : title,
-      newContent : content
-    }
+    content : newPost
   };
 }
 
 export const APPEND_POST = 'APPEND_POST';
-export function appendPost (id, content) {
+export function appendPost (newAppend) {
   return {
     type    : APPEND_POST,
-    content : {
-      id      : id,
-      content : content
-    }
+    content : newAppend
   };
 }
 
 export const REPLY_POST = 'REPLY_POST';
-export function replyPost (id, content) {
+export function replyPost (newReply) {
   return {
     type    : REPLY_POST,
-    content : {
-      id      : id,
-      content : content
-    }
+    content : newReply
+  };
+}
+
+export function createPostAjax (newTitle, newContent) {
+  return function (dispatch) {
+    var request = new Request('http://localhost:8081/post/create', {
+      method : 'POST',
+      body   : JSON.stringify({
+        title   : newTitle,
+        content : newContent
+      })
+    });
+    fetch(request).then(res => {
+      return res.json();
+    }).then(json => {
+      if ('success' === json.result) {
+        dispatch(createPost(json.newPost));
+      }
+    });
+  };
+}
+
+export function appendPostAjax (postID, appendContent) {
+  return function (dispatch) {
+    var request = new Request('http://localhost:8081/post/append', {
+      method : 'POST',
+      body   : JSON.stringify({
+        postID : postID,
+        text   : appendContent
+      })
+    });
+    fetch(request).then(res => {
+      return res.json();
+    }).then(json => {
+      if ('success' === json.result) {
+        dispatch(appendPost(json.newAppend));
+      }
+    });
+  };
+}
+
+export function replyPostAjax (postID, replyContent) {
+  return function (dispatch) {
+    var request = new Request('http://localhost:8081/post/reply', {
+      method : 'POST',
+      body   : JSON.stringify({
+        postID  : postID,
+        text    : replyContent.text,
+        replyTo : replyContent.replyTo
+      })
+    });
+    fetch(request).then(res => {
+      return res.json();
+    }).then(json => {
+      if ('success' === json.result) {
+        dispatch(replyPost(json.newReply));
+      }
+    });
   };
 }

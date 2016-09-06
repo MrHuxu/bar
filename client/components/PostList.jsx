@@ -10,9 +10,9 @@ class PostList extends Component {
     dispatch : PropTypes.func.isRequired,
     ids      : PropTypes.arrayOf(PropTypes.string).isRequired,
     posts    : PropTypes.objectOf(PropTypes.shape({
-      id    : PropTypes.string.isRquired,
-      title : PropTypes.string.isRequired,
-      texts : PropTypes.arrayOf(PropTypes.shape({
+      id      : PropTypes.string.isRquired,
+      title   : PropTypes.string.isRequired,
+      appends : PropTypes.arrayOf(PropTypes.shape({
         text      : PropTypes.string.isRequired,
         createdAt : PropTypes.object.isRequired
       })).isRequired,
@@ -29,7 +29,7 @@ class PostList extends Component {
 
     for (let key in posts) {
       let post = posts[key];
-      post.updatedAt = new Date(Math.max.apply(null, post.texts.map(text => text.createdAt).concat(post.replies.map(reply => reply.createdAt))));
+      post.updatedAt = new Date(Math.max.apply(null, post.appends.map(text => text.createdAt).concat(post.createdAt).concat(post.replies.map(reply => reply.createdAt))));
     }
 
     return ids.sort((id1, id2) => {
