@@ -22,7 +22,7 @@ export default function renderReply (params) {
               to #{data.replyTo}
             </span> : null }
           <span className = 'metadata'>
-            <div className = 'date'>{dateFormat(data.updatedAt, 'd/m/yyyy, H:MM:ss')}</div>
+            <div className = 'date'>{dateFormat(data.createdAt, 'd/m/yyyy, H:MM:ss')}</div>
           </span>
           <span
             className = 'actions'
