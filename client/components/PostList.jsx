@@ -7,23 +7,23 @@ import { fetchPosts } from '../actions/PostActions';
 import styles from '../styles/post-list';
 
 class PostList extends Component {
-  static propTypes = {
-    dispatch : PropTypes.func.isRequired,
-    ids      : PropTypes.arrayOf(PropTypes.string).isRequired,
-    entities : PropTypes.objectOf(PropTypes.shape({
-      id      : PropTypes.string.isRquired,
-      title   : PropTypes.string.isRequired,
-      appends : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        createdAt : PropTypes.object.isRequired
-      })).isRequired,
-      replies : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        replyTo   : PropTypes.number,
-        createdAt : PropTypes.object.isRequired
-      }))
-    })).isRequired
-  };
+  // static propTypes = {
+  //   dispatch : PropTypes.func.isRequired,
+  //   ids      : PropTypes.arrayOf(PropTypes.string).isRequired,
+  //   entities : PropTypes.objectOf(PropTypes.shape({
+  //     id      : PropTypes.string.isRquired,
+  //     title   : PropTypes.string.isRequired,
+  //     appends : PropTypes.arrayOf(PropTypes.shape({
+  //       text      : PropTypes.string.isRequired,
+  //       createdAt : PropTypes.object.isRequired
+  //     })).isRequired,
+  //     replies : PropTypes.arrayOf(PropTypes.shape({
+  //       text      : PropTypes.string.isRequired,
+  //       replyTo   : PropTypes.number,
+  //       createdAt : PropTypes.object.isRequired
+  //     }))
+  //   })).isRequired
+  // };
 
   componentDidMount () {
     this.props.dispatch(fetchPosts());

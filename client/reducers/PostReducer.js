@@ -10,25 +10,26 @@ export function post (state = {
   ids      : immutable.List([]),
   entities : immutable.Map({})
 }, action) {
+  var copy = Object.assign({}, state);
   const { type, content } = action;
 
   switch (type) {
     case CREATE_POST:
-      state.ids = state.ids.push(content.ID);
-      state.entities = state.entities.set(content.ID, {
+      copy.ids = copy.ids.push(content.ID);
+      copy.entities = copy.entities.set(content.ID, immutable.Map({
         id        : content.ID,
         title     : content.Title,
         content   : content.Content,
         createdAt : new Date(content.CreatedAt),
         appends   : immutable.List([]),
         replies   : immutable.List([])
-      });
+      }));
       break;
 
     case APPEND_POST:
-      state.entities = state.entities.setIn(
+      copy.entities = copy.entities.setIn(
         [content.PostID, 'appends'],
-        state.entities[content.PostID].appends.push({
+        copy.entities.getIn([content.PostID, 'appends']).push({
           text      : content.Text,
           createdAt : new Date(content.CreatedAt)
         })
@@ -36,9 +37,9 @@ export function post (state = {
       break;
 
     case REPLY_POST:
-      state.entities = state.entities.setIn(
+      copy.entities = copy.entities.setIn(
         [content.PostID, 'replies'],
-        state.entities[content.PostID].replies.push({
+        copy.entities.getIn([content.PostID, 'replies']).push({
           text      : content.Text,
           replyTo   : content.ReplyTo,
           createdAt : new Date(content.CreatedAt)
@@ -47,8 +48,8 @@ export function post (state = {
       break;
 
     case REFRESH_POSTS:
-      state.ids = immutable.List(content.map(record => record.ID));
-      state.entities = immutable.Map(content.reduce((prev, cur, index, arr) => {
+      copy.ids = immutable.List(content.map(record => record.ID));
+      copy.entities = immutable.Map(content.reduce((prev, cur, index, arr) => {
         prev[cur.ID] = immutable.Map({
           id        : cur.ID,
           title     : cur.Title,
@@ -76,5 +77,6 @@ export function post (state = {
     default:
       break;
   }
-  return state;
+
+  return copy;
 }
