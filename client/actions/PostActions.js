@@ -1,3 +1,11 @@
+export const REFRESH_POSTS = 'REFRESH_POSTS';
+export function refreshPosts (posts) {
+  return {
+    type    : REFRESH_POSTS,
+    content : posts
+  };
+}
+
 export const CREATE_POST = 'CREATE_POST';
 export function createPost (newPost) {
   return {
@@ -19,6 +27,21 @@ export function replyPost (newReply) {
   return {
     type    : REPLY_POST,
     content : newReply
+  };
+}
+
+export function fetchPosts () {
+  return function (dispatch) {
+    var request = new Request('http://localhost:8081/post/', {
+      method : 'GET'
+    });
+    fetch(request).then(res => {
+      return res.json();
+    }).then(json => {
+      if ('success' === json.result) {
+        dispatch(refreshPosts(json.posts));
+      }
+    });
   };
 }
 

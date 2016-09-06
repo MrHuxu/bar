@@ -20,20 +20,49 @@ type Post struct {
 }
 
 type Append struct {
-	PostID    bson.ObjectId `bson:"_id,omitempty"`
+	PostID    bson.ObjectId
 	Text      string
 	CreatedAt time.Time
 }
 
 type Reply struct {
-	PostID    bson.ObjectId `bson:"_id,omitempty"`
+	PostID    bson.ObjectId
 	Text      string
 	ReplyTo   int
 	CreatedAt time.Time
 }
 
 func getAllPosts(c *gin.Context, db *mgo.Database) {
+	postCollection := db.C("post")
+	appendCollection := db.C("append")
+	replyCollection := db.C("reply")
 
+	var posts []Post
+	err := postCollection.Find(bson.M{}).All(&posts)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for index := range posts {
+		var appends []Append
+		err = appendCollection.Find(bson.M{"postid": posts[index].ID}).All(&appends)
+		if err != nil {
+			fmt.Println(err)
+		}
+		posts[index].Appends = &appends
+
+		var replies []Reply
+		err = replyCollection.Find(bson.M{"postid": posts[index].ID}).All(&replies)
+		if err != nil {
+			fmt.Println(err)
+		}
+		posts[index].Replies = &replies
+	}
+
+	c.JSON(200, gin.H{
+		"result": "success",
+		"posts":  &posts,
+	})
 }
 
 func createPost(c *gin.Context, db *mgo.Database) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import CreateForm from './CreateForm';
 import Post from './Post';
+import { fetchPosts } from '../actions/PostActions';
 import styles from '../styles/post-list';
 
 class PostList extends Component {
@@ -23,6 +24,10 @@ class PostList extends Component {
       }))
     })).isRequired
   };
+
+  componentDidMount () {
+    this.props.dispatch(fetchPosts());
+  }
 
   renderPosts () {
     const { ids, posts } = this.props;

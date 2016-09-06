@@ -1,46 +1,13 @@
 import {
   CREATE_POST,
   APPEND_POST,
-  REPLY_POST
+  REPLY_POST,
+  REFRESH_POSTS
 } from '../actions/PostActions';
 
 export function post (state = {
-  ids      : ['1', '2'],
-  entities : {
-    '1' : {
-      id        : '1',
-      title     : 'title 1',
-      content   : 'test content 1',
-      createdAt : new Date(),
-      appends   : [{
-        text      : 'text 1',
-        createdAt : new Date()
-      }, {
-        text      : 'text 2',
-        createdAt : new Date()
-      }],
-      replies : []
-    },
-    '2' : {
-      id        : '2',
-      title     : 'title 2',
-      content   : 'test content 2',
-      createdAt : new Date(),
-      appends   : [{
-        text      : 'text 3',
-        createdAt : new Date()
-      }],
-      replies : [{
-        text      : 'text 4',
-        replyTo   : null,
-        createdAt : new Date()
-      }, {
-        text      : 'text 5',
-        replyTo   : 1,
-        createdAt : new Date()
-      }]
-    }
-  }
+  ids      : [],
+  entities : {}
 }, action) {
   var copy = Object.assign({}, state);
   copy.entities = Object.assign({}, state.entities);
@@ -72,6 +39,33 @@ export function post (state = {
         replyTo   : content.ReplyTo,
         createdAt : new Date(content.CreatedAt)
       });
+      break;
+
+    case REFRESH_POSTS:
+      copy.ids = content.map(record => record.ID);
+      copy.entities = content.reduce((prev, cur, index, arr) => {
+        prev[cur.ID] = {
+          id        : cur.ID,
+          title     : cur.Title,
+          content   : cur.Content,
+          createdAt : new Date(cur.CreatedAt),
+          appends   : cur.Appends ? cur.Appends.map(append => {
+            return {
+              text      : append.Text,
+              createdAt : new Date(append.CreatedAt)
+            };
+          }) : [],
+          replies : cur.Replies ? cur.Replies.map(reply => {
+            return {
+              text      : reply.Text,
+              replyTo   : reply.ReplyTo,
+              createdAt : new Date(reply.CreatedAt)
+            };
+          }) : []
+        };
+
+        return prev;
+      }, {});
       break;
 
     default:
