@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Radium, { Style } from 'radium';
+import { Style } from 'radium';
 
 import PostText from './PostText';
 import renderAppendForm from './AppendForm';
@@ -9,7 +9,6 @@ import renderReplyForm from './ReplyForm';
 import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
 import styles from '../styles/post';
 
-@Radium
 class Post extends Component {
   static propTypes = {
     dispatch : PropTypes.func.isRequired,

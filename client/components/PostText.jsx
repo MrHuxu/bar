@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import Radium from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
 
 import renderHead from './PostHeader';
 import styles from '../styles/post-text';
 
+@Radium
 class PostText extends Component {
   componentDidMount () {
-     $('pre code').each(function(i, block) {
-    hljs.highlightBlock(block);
-  }); 
+    $('pre code').each(function (i, block) {
+      hljs.highlightBlock(block);
+    });
   }
 
   render () {

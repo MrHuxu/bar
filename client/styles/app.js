@@ -5,8 +5,8 @@ export default {
       letterSpacing : '0.03em'
     },
 
-    '.hljs *, code' :{
-      fontFamily: '"Monaco", "MonacoRegular", "Courier New", monospace !important'
+    '.hljs *, code' : {
+      fontFamily : '"Monaco", "MonacoRegular", "Courier New", monospace !important'
     }
   },
 
