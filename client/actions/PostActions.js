@@ -32,7 +32,7 @@ export function replyPost (newReply) {
 
 export function fetchPosts () {
   return function (dispatch) {
-    var request = new Request('http://localhost:8081/post/', {
+    var request = new Request('/post/', {
       method : 'GET'
     });
     fetch(request).then(res => {
@@ -47,7 +47,7 @@ export function fetchPosts () {
 
 export function createPostAjax (newTitle, newContent) {
   return function (dispatch) {
-    var request = new Request('http://localhost:8081/post/create', {
+    var request = new Request('/post/create', {
       method : 'POST',
       body   : JSON.stringify({
         title   : newTitle,
@@ -66,7 +66,7 @@ export function createPostAjax (newTitle, newContent) {
 
 export function appendPostAjax (postID, appendContent) {
   return function (dispatch) {
-    var request = new Request('http://localhost:8081/post/append', {
+    var request = new Request('/post/append', {
       method : 'POST',
       body   : JSON.stringify({
         postID : postID,
@@ -85,7 +85,7 @@ export function appendPostAjax (postID, appendContent) {
 
 export function replyPostAjax (postID, replyContent) {
   return function (dispatch) {
-    var request = new Request('http://localhost:8081/post/reply', {
+    var request = new Request('/post/reply', {
       method : 'POST',
       body   : JSON.stringify({
         postID  : postID,

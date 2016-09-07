@@ -6,3 +6,7 @@ log/
 server/public/imgs/.DS_Store
 npm-debug.log
 dump.rdb
+
+server/logfile.log
+server/built/
+server/main

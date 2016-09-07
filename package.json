@@ -9,10 +9,9 @@
     "webpack-dev-server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --port 6789 --hot",
     "dev-server": "cd server && go run main.go",
     "dev": "./node_modules/concurrently/src/main.js 'npm run webpack-dev-server' 'npm run dev-server'",
-    "cache": "node lib/cache-all",
     "webpack": "./node_modules/webpack/bin/webpack.js --config webpack.config.prd.js",
-    "prd-server": "NODE_ENV=production forever start ./server",
-    "prd": "npm run cache && npm run webpack && npm run prd-server"
+    "prd-server": "cd server && go build main.go && ENV=Production ./main",
+    "prd": "npm run webpack && npm run prd-server"
   },
   "dependencies": {
     "animate.css": "^3.5.2",

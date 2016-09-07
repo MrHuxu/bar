@@ -6,7 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"io"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -140,12 +142,31 @@ func main() {
 	defer session.Close()
 	barDB := session.DB("bar")
 
-	// setup routers
-	router := gin.Default()
+	// init router
+	var router *gin.Engine
+	if "Production" == os.Getenv("ENV") {
+		logFile, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			fmt.Println("error opening log file")
+		}
+		defer logFile.Close()
+
+		gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
+		gin.SetMode(gin.ReleaseMode)
+
+		router = gin.New()
+		router.Use(gin.Logger())
+		router.StaticFile("./bundle.js", "./built/bundle.js")
+	} else {
+		gin.SetMode(gin.DebugMode)
+		router = gin.New()
+	}
 	router.LoadHTMLGlob("templates/*")
 
+	// setup routers
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"prd":   "Production" == os.Getenv("ENV"),
 			"title": "Bar of xhu",
 		})
 	})
