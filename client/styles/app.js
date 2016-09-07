@@ -3,6 +3,10 @@ export default {
     '*' : {
       fontFamily    : "'Rambla', sans-serif",
       letterSpacing : '0.03em'
+    },
+
+    '.hljs *, code' :{
+      fontFamily: '"Monaco", "MonacoRegular", "Courier New", monospace !important'
     }
   },
 

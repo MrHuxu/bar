@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Radium, { Style } from 'radium';
 
-import renderText from './PostText';
+import PostText from './PostText';
+import renderAppendForm from './AppendForm';
 import renderReply from './Reply';
 import renderReplyForm from './ReplyForm';
 import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
@@ -164,9 +165,11 @@ class Post extends Component {
       <div style = {styles.container}>
         <Style rules = {styles.global} />
         <div className = 'timeline-item'>
-          <div className = 'ui piled segments'>
-            {renderText.call(this, data)}
-          </div>
+          <PostText
+            parent = {this}
+            params = {data}
+          />
+          {this.state.appending ? renderAppendForm.call(this, data) : null}
         </div>
         <div style = {styles.replyArea}>
           {this.renderReplyArea(data)}
