@@ -7,19 +7,21 @@ export default {
   },
 
   leftPanel : {
-    display       : 'inline-block',
-    verticalAlign : 'top',
-    padding       : '10% 0 0 4%',
-    height        : '100%',
-    width         : '25%',
-    fontSize      : '20px'
+    position : 'fixed',
+    display  : 'inline-block',
+    padding  : '10% 0 0 4%',
+    height   : '100%',
+    width    : '25%',
+    fontSize : '20px',
+    top      : '0',
+    left     : '0'
   },
 
   rightPanel : {
     display       : 'inline-block',
     verticalAlign : 'top',
+    margin        : '0 0 0 25%',
     height        : '100%',
-    width         : '75%',
-    overflow      : 'auto'
+    width         : '75%'
   }
 };

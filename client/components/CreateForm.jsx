@@ -17,6 +17,12 @@ class CreateForm extends Component {
     };
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    const { postTitle } = this.refs;
+
+    if (postTitle) postTitle.focus();
+  }
+
   _changeEditStatus (event, status) {
     this.setState({
       editing : status === undefined ? !this.state.editing : status

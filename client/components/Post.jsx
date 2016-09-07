@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Radium, { Style } from 'radium';
@@ -102,6 +103,7 @@ class Post extends Component {
 
     dispatch(appendPostAjax(data.id, this.refs.appendForm.value));
     this._quitAppend();
+    $("html, body").animate({ scrollTop: 0 });
   }
 
   _quitAppend () {
@@ -128,6 +130,7 @@ class Post extends Component {
       text    : this.refs.replyForm.value
     }));
     this._quitReply();
+    $("html, body").animate({ scrollTop: 0 });
   }
 
   _quitReply () {
