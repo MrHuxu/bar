@@ -12,7 +12,7 @@ export default function renderHead (params) {
           className = 'sub header'
           style = {styles.subHeader}
         >
-          {dateFormat(params.updatedAt, 'd/m/yyyy, H:MM:ss')}
+          Updated at {dateFormat(params.updatedAt, 'd/m/yyyy, H:MM:ss')}
           <a
             key = {`post-${params.id}-append`}
             style = {styles.actionLink}
