@@ -132,7 +132,7 @@ func replyPost(c *gin.Context, db *mgo.Database) {
 }
 
 func main() {
-	fmt.Println("Welcome to HyLDA Change History Server!")
+	fmt.Println("==> 🌎  Listening on port 8081. Open up http://localhost:8081/ in your browser.")
 
 	// setup database
 	session, err := mgo.Dial("127.0.0.1:27017")
@@ -151,7 +151,7 @@ func main() {
 		}
 		defer logFile.Close()
 
-		gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
+		gin.DefaultWriter = io.Writer(logFile)
 		gin.SetMode(gin.ReleaseMode)
 
 		router = gin.New()
