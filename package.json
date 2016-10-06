@@ -35,7 +35,6 @@
     "immutable": "^3.8.1",
     "jquery": "^3.1.0",
     "marked": "^0.3.5",
-    "material-ui": "^0.15.4",
     "morgan": "^1.7.0",
     "nprogress": "^0.2.0",
     "radium": "^0.18.1",
@@ -51,7 +50,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.1"
+    "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
