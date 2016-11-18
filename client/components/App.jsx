@@ -15,8 +15,7 @@ class App extends Component {
           <p> In a bar, what is done is done </p>
         </div>
         <div style = {styles.rightPanel}>
-          <PostList
-         />
+          <PostList />
         </div>
       </div>
     );

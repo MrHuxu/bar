@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
@@ -8,10 +8,32 @@ import styles from '../styles/post-text';
 
 @Radium
 class PostText extends Component {
+  static propTypes = {
+    dispatch : PropTypes.func.isRequired,
+    parent   : PropTypes.object.isRequired,
+    params   : PropTypes.shape({
+      id        : PropTypes.string.isRquired,
+      title     : PropTypes.string.isRequired,
+      content   : PropTypes.string.isRequired,
+      createdAt : PropTypes.object.isRequired,
+      appends   : PropTypes.arrayOf(PropTypes.shape({
+        text      : PropTypes.string.isRequired,
+        createdAt : PropTypes.object.isRequired
+      })).isRequired,
+      replies : PropTypes.arrayOf(PropTypes.shape({
+        text      : PropTypes.string.isRequired,
+        replyTo   : PropTypes.number,
+        createdAt : PropTypes.object.isRequired
+      })).isRequired
+    })
+  };
+
   componentDidMount () {
+    /*eslint-disable */
     $('pre code').each(function (i, block) {
       hljs.highlightBlock(block);
     });
+    /*eslint-enable */
   }
 
   render () {
