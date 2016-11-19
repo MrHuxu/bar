@@ -9,7 +9,6 @@ import styles from '../styles/post-text';
 @Radium
 class PostText extends Component {
   static propTypes = {
-    dispatch : PropTypes.func.isRequired,
     parent   : PropTypes.object.isRequired,
     params   : PropTypes.shape({
       id        : PropTypes.string.isRquired,
