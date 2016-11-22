@@ -1,6 +1,7 @@
 import React from 'react';
 import dateFormat from 'dateformat';
 
+import { processText } from '../lib/surround-words-with-spaces';
 import styles from '../styles/reply';
 
 export default function renderReply (params) {
@@ -39,7 +40,7 @@ export default function renderReply (params) {
             className = 'text'
             style = {styles.text}
           >
-            {data.text}
+            {processText(data.text)}
           </div>
         </div>
       </div>
