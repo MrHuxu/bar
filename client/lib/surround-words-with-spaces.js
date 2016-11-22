@@ -2,7 +2,7 @@ const re = /[a-zA-Z0-9_#: .\-/\\[\]]+/g;
 const getWordsFromText = text => (text.match(re) || []).filter(t => (/[a-zA-Z0-9]+/g).test(t));
 
 const replaceWordsInText = (text, words) => {
-  return words.reduce((prev, word, index) => {
+  return words.length ? words.reduce((prev, word, index) => {
     var wordEndIdx = text.indexOf(word) + word.length;
     if (index === words.length - 1) {
       prev += text.replace(word, ` ${word} `);
@@ -11,7 +11,7 @@ const replaceWordsInText = (text, words) => {
       text = text.slice(wordEndIdx);
     }
     return prev;
-  }, '');
+  }, '') : text;
 };
 
 export function processText (text) {
