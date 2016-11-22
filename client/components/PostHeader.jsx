@@ -1,13 +1,14 @@
 import React from 'react';
 import dateFormat from 'dateformat';
 
+import { processText } from '../lib/surround-words-with-spaces';
 import styles from '../styles/post';
 
 export default function renderHead (params) {
   return (
     <h4 className = 'ui header'>
       <div className = 'content'>
-        {params.title}
+        {processText(params.title)}
         <span
           className = 'sub header'
           style = {styles.subHeader}

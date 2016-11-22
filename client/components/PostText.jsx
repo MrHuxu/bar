@@ -10,8 +10,8 @@ import styles from '../styles/post-text';
 @Radium
 class PostText extends Component {
   static propTypes = {
-    parent   : PropTypes.object.isRequired,
-    params   : PropTypes.shape({
+    parent : PropTypes.object.isRequired,
+    params : PropTypes.shape({
       id        : PropTypes.string.isRquired,
       title     : PropTypes.string.isRequired,
       content   : PropTypes.string.isRequired,
@@ -34,7 +34,7 @@ class PostText extends Component {
       hljs.highlightBlock(block);
     });
     /*eslint-enable */
-    processElement(this.refs.textAreaElem)
+    processElement(this.refs.textAreaElem);
   }
 
   render () {

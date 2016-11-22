@@ -1,12 +1,17 @@
-const re = /[a-zA-Z0-9_# \.\-\/\\]+/g;
-const getWordsFromText = text => $.unique(text.match(re) || []).filter(t => (/[a-zA-Z0-9]+/g).test(t));
+const re = /[a-zA-Z0-9_#: .\-/\\[\]]+/g;
+const getWordsFromText = text => (text.match(re) || []).filter(t => (/[a-zA-Z0-9]+/g).test(t));
 
 const replaceWordsInText = (text, words) => {
-  words.forEach(word => {
-    let wordRE = new RegExp(word, 'g');
-    text = text.replace(wordRE, ` ${word} `);
-  });
-  return text;
+  return words.reduce((prev, word, index) => {
+    var wordEndIdx = text.indexOf(word) + word.length;
+    if (index === words.length - 1) {
+      prev += text.replace(word, ` ${word} `);
+    } else {
+      prev += (text.slice(0, wordEndIdx)).replace(word, ` ${word} `);
+      text = text.slice(wordEndIdx);
+    }
+    return prev;
+  }, '');
 };
 
 export function processText (text) {
@@ -15,7 +20,7 @@ export function processText (text) {
 }
 
 export function processElement (elem) {
-  var containers = $(elem).find('p, li');
+  var containers = $(elem).find('p, li');   // eslint-disable-line
   containers.each((idx, container) => {
     container.childNodes.forEach(child => {
       if (0 === child.childNodes.length) {
