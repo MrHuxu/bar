@@ -3,6 +3,7 @@ import Radium from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
 
+import { processText, processElement } from '../lib/surround-words-with-spaces';
 import renderHead from './PostHeader';
 import styles from '../styles/post-text';
 
@@ -33,6 +34,7 @@ class PostText extends Component {
       hljs.highlightBlock(block);
     });
     /*eslint-enable */
+    processElement(this.refs.textAreaElem)
   }
 
   render () {
@@ -47,7 +49,7 @@ class PostText extends Component {
           <span className = 'ui label'>
             {dateFormat(cur.createdAt, 'd/m/yyyy, H:MM:ss')}
           </span>
-          <span style = {styles.text}> {cur.text} </span>
+          <span style = {styles.text}> {processText(cur.text)} </span>
         </div>
       );
       return prev;
@@ -57,7 +59,10 @@ class PostText extends Component {
         className = 'ui segment'
       >
         {renderHead.call(parent, params)}
-        <span style = {styles.text}>
+        <span
+          ref = 'textAreaElem'
+          style = {styles.text}
+        >
           <div dangerouslySetInnerHTML = {{ __html: parse(params.content) }} />
         </span>
       </div>
