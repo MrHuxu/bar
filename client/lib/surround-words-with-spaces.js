@@ -1,4 +1,4 @@
-const re = /[a-zA-Z0-9_#: .\-/\\[\]]+/g;
+const re = /[a-zA-Z0-9_#: .\-/\\[\]$()]+/g;
 const getWordsFromText = text => (text.match(re) || []).filter(t => (/[a-zA-Z0-9]+/g).test(t));
 
 const replaceWordsInText = (text, words) => {
