@@ -54,10 +54,10 @@ class PostList extends Component {
   }
 }
 
-var mapStateToProps = (state) => {
+var mapStateToProps = ({ post }) => {
   return {
-    ids      : state.post.ids,
-    entities : state.post.entities
+    ids      : post.ids,
+    entities : post.entities
   };
 };
 
