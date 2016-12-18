@@ -41,7 +41,10 @@ class PostList extends Component {
 
     return ids.sort((id1, id2) => {
       return posts[id1].updatedAt > posts[id2].updatedAt ? -1 : 1;
-    }).map(id => <Post key = {`post-${id}`} data = {posts[id]} />);
+    }).map(id => <Post key = {`post-${id}`} data = {posts[id]} />).reduce((prev, curr, index) => {
+      prev[index % 4] ? prev[index % 4].push(curr) : prev[index % 4] = [curr];
+      return prev;
+    }, []).map((postCol, index) => <div key = {`post-col-${index}`} style = {styles.postCol}> {postCol} </div>);
   }
 
   render () {
