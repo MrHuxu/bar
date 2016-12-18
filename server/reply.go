@@ -16,23 +16,28 @@ type Reply struct {
 	CreatedAt time.Time
 }
 
-func replyPost(c *gin.Context, db *mgo.Database) {
-	var newReply Reply
-	decoder := json.NewDecoder(c.Request.Body)
-	err := decoder.Decode(&newReply)
-	if err != nil {
-		fmt.Println(err)
-	}
-	newReply.CreatedAt = time.Now()
+func (Reply) Create(db *mgo.Database, reply *Reply) {
+	replyCollection := db.C("reply")
 
-	reply := db.C("reply")
-	err = reply.Insert(&newReply)
+	err := replyCollection.Insert(reply)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func replyPost(c *gin.Context, db *mgo.Database) {
+	var reply Reply
+	decoder := json.NewDecoder(c.Request.Body)
+	err := decoder.Decode(&reply)
+	if err != nil {
+		fmt.Println(err)
+	}
+	reply.CreatedAt = time.Now()
+
+	Reply{}.Create(db, &reply)
 
 	c.JSON(200, gin.H{
 		"result":   "success",
-		"newReply": &newReply,
+		"newReply": &reply,
 	})
 }

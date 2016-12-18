@@ -18,7 +18,16 @@ type Post struct {
 	Replies   *[]Reply
 }
 
-func (Post) LoadPosts(db *mgo.Database, posts *[]*Post) {
+func (Post) Create(db *mgo.Database, post *Post) {
+	postCollection := db.C("post")
+
+	err := postCollection.Insert(post)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func (Post) Read(db *mgo.Database, posts *[]*Post) {
 	postCollection := db.C("post")
 
 	err := postCollection.Find(bson.M{}).All(posts)
@@ -47,9 +56,9 @@ func (p *Post) LoadReplies(db *mgo.Database) {
 	}
 }
 
-func getAllPosts(c *gin.Context, db *mgo.Database) {
+func allPosts(c *gin.Context, db *mgo.Database) {
 	var posts []*Post
-	Post{}.LoadPosts(db, &posts)
+	Post{}.Read(db, &posts)
 	for index := range posts {
 		posts[index].LoadAppends(db)
 		posts[index].LoadReplies(db)
@@ -61,24 +70,20 @@ func getAllPosts(c *gin.Context, db *mgo.Database) {
 	})
 }
 
-func createPost(c *gin.Context, db *mgo.Database) {
-	var newPost Post
+func newPost(c *gin.Context, db *mgo.Database) {
+	var post Post
 	decoder := json.NewDecoder(c.Request.Body)
-	err := decoder.Decode(&newPost)
+	err := decoder.Decode(&post)
 	if err != nil {
 		fmt.Println(err)
 	}
-	newPost.ID = bson.NewObjectId()
-	newPost.CreatedAt = time.Now()
+	post.ID = bson.NewObjectId()
+	post.CreatedAt = time.Now()
 
-	post := db.C("post")
-	err = post.Insert(&newPost)
-	if err != nil {
-		fmt.Println(err)
-	}
+	Post{}.Create(db, &post)
 
 	c.JSON(200, gin.H{
 		"result":  "success",
-		"newPost": &newPost,
+		"newPost": &post,
 	})
 }

@@ -15,23 +15,28 @@ type Append struct {
 	CreatedAt time.Time
 }
 
-func appendPost(c *gin.Context, db *mgo.Database) {
-	var newAppend Append
-	decoder := json.NewDecoder(c.Request.Body)
-	err := decoder.Decode(&newAppend)
-	if err != nil {
-		fmt.Println(err)
-	}
-	newAppend.CreatedAt = time.Now()
+func (Append) Create(db *mgo.Database, append *Append) {
+	appendCollection := db.C("append")
 
-	append := db.C("append")
-	err = append.Insert(&newAppend)
+	err := appendCollection.Insert(append)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func appendPost(c *gin.Context, db *mgo.Database) {
+	var append Append
+	decoder := json.NewDecoder(c.Request.Body)
+	err := decoder.Decode(&append)
+	if err != nil {
+		fmt.Println(err)
+	}
+	append.CreatedAt = time.Now()
+
+	Append{}.Create(db, &append)
 
 	c.JSON(200, gin.H{
 		"result":    "success",
-		"newAppend": &newAppend,
+		"newAppend": &append,
 	})
 }
