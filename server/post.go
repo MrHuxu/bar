@@ -18,31 +18,41 @@ type Post struct {
 	Replies   *[]Reply
 }
 
-func getAllPosts(c *gin.Context, db *mgo.Database) {
+func (Post) LoadPosts(db *mgo.Database, posts *[]*Post) {
 	postCollection := db.C("post")
-	appendCollection := db.C("append")
-	replyCollection := db.C("reply")
 
-	var posts []Post
-	err := postCollection.Find(bson.M{}).All(&posts)
+	err := postCollection.Find(bson.M{}).All(posts)
 	if err != nil {
 		fmt.Println(err)
 	}
+}
 
+func (p *Post) LoadAppends(db *mgo.Database) {
+	appendCollection := db.C("append")
+
+	p.Appends = &[]Append{}
+	err := appendCollection.Find(bson.M{"postid": p.ID}).All(p.Appends)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func (p *Post) LoadReplies(db *mgo.Database) {
+	replyCollection := db.C("reply")
+
+	p.Replies = &[]Reply{}
+	err := replyCollection.Find(bson.M{"postid": p.ID}).All(p.Replies)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func getAllPosts(c *gin.Context, db *mgo.Database) {
+	var posts []*Post
+	Post{}.LoadPosts(db, &posts)
 	for index := range posts {
-		var appends []Append
-		err = appendCollection.Find(bson.M{"postid": posts[index].ID}).All(&appends)
-		if err != nil {
-			fmt.Println(err)
-		}
-		posts[index].Appends = &appends
-
-		var replies []Reply
-		err = replyCollection.Find(bson.M{"postid": posts[index].ID}).All(&replies)
-		if err != nil {
-			fmt.Println(err)
-		}
-		posts[index].Replies = &replies
+		posts[index].LoadAppends(db)
+		posts[index].LoadReplies(db)
 	}
 
 	c.JSON(200, gin.H{
