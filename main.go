@@ -5,9 +5,15 @@ import (
 	"os"
 )
 
-func main() {
-	mode := os.Getenv("ENV")
+var MODE = os.Getenv("ENV")
+var PORT = 8081
+var MONGO_PORT = 27017
 
-	server := server.NewServer(mode, 8081)
-	server.Run()
+func main() {
+	barServer := server.NewServer()
+	barServer.InitEngine(MODE)
+	barServer.InitTemplateConfig("server/templates/*")
+	barServer.InitDatabaseConfig(MONGO_PORT)
+
+	barServer.Run(PORT)
 }

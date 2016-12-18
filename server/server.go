@@ -10,29 +10,23 @@ import (
 )
 
 type Server struct {
+	Port   string
 	Engine *gin.Engine
 	Mode   string
-	Port   string
 	DBPort string
 	DB     *mgo.Database
 }
 
-func NewServer(mode string, port int) *Server {
-	svr := &Server{
-		Mode: mode,
-		Port: strconv.Itoa(port),
-	}
-
-	svr.initEngine()
-	svr.initTemplateConfig()
-	svr.initDatabaseConfig()
+func NewServer() *Server {
+	var svr *Server
 
 	setRoutes(svr)
 
 	return svr
 }
 
-func (svr *Server) initEngine() {
+func (svr *Server) InitEngine(mode string) {
+	svr.Mode = mode
 	if svr.Mode == "Production" {
 		svr.initEngineOnPrdMode()
 	} else {
@@ -60,12 +54,13 @@ func (svr *Server) initEngineOnPrdMode() {
 	svr.Engine.StaticFile("./bundle.js", "./built/bundle.js")
 }
 
-func (svr *Server) initTemplateConfig() {
-	svr.Engine.LoadHTMLGlob("server/templates/*")
+func (svr *Server) InitTemplateConfig(dir string) {
+	svr.Engine.LoadHTMLGlob(dir)
 }
 
-func (svr *Server) initDatabaseConfig() {
-	session, err := mgo.Dial("127.0.0.1:27017")
+func (svr *Server) InitDatabaseConfig(dbPort int) {
+	svr.DBPort = strconv.Itoa(dbPort)
+	session, err := mgo.Dial("127.0.0.1:" + svr.DBPort)
 	if err != nil {
 		panic(err)
 	}
@@ -73,7 +68,8 @@ func (svr *Server) initDatabaseConfig() {
 	svr.DB = session.DB("bar")
 }
 
-func (svr *Server) Run() {
-	fmt.Println("==> 🌎  Listening on port 8081. Open up http://localhost:8081/ in your browser.")
+func (svr *Server) Run(port int) {
+	svr.Port = strconv.Itoa(port)
+	fmt.Println("==> 🌎  Listening on port " + svr.Port + ". Open up http://localhost:8081/ in your browser.")
 	svr.Engine.Run(":" + svr.Port)
 }
