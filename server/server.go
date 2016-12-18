@@ -61,7 +61,6 @@ func (svr *Server) InitDatabaseConfig(dbPort int) {
 	if err != nil {
 		panic(err)
 	}
-	defer session.Close()
 	svr.DB = session.DB("bar")
 }
 
