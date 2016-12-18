@@ -14,6 +14,7 @@ func main() {
 	barServer.InitEngine(MODE)
 	barServer.InitTemplateConfig("server/templates/*")
 	barServer.InitDatabaseConfig(MONGO_PORT)
+	server.SetRoutes(barServer)
 
 	barServer.Run(PORT)
 }

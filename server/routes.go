@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func setRoutes(svr *Server) {
+func SetRoutes(svr *Server) {
 	svr.Engine.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"prd":   "Production" == svr.Mode,

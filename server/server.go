@@ -18,10 +18,7 @@ type Server struct {
 }
 
 func NewServer() *Server {
-	var svr *Server
-
-	setRoutes(svr)
-
+	svr := &Server{}
 	return svr
 }
 

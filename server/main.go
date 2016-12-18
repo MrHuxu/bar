@@ -6,9 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"io"
-	"net/http"
-	"os"
 	"time"
 )
 
