@@ -15,7 +15,7 @@ export default {
     display  : 'inline-block',
     padding  : '10% 0 0 4%',
     height   : '100%',
-    width    : '25%',
+    width    : '20%',
     fontSize : '20px',
     top      : '0',
     left     : '0'
@@ -24,8 +24,8 @@ export default {
   rightPanel : {
     display       : 'inline-block',
     verticalAlign : 'top',
-    margin        : '0 0 0 25%',
+    margin        : '0 0 0 15%',
     height        : '100%',
-    width         : '75%'
+    width         : '85%'
   }
 };
