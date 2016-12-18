@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
+	"io"
 	"os"
 	"strconv"
 )
@@ -12,11 +13,12 @@ type Server struct {
 	Engine *gin.Engine
 	Mode   string
 	Port   string
+	DBPort string
 	DB     *mgo.Database
 }
 
 func NewServer(mode string, port int) *Server {
-	svr := *Server{
+	svr := &Server{
 		Mode: mode,
 		Port: strconv.Itoa(port),
 	}
@@ -24,6 +26,10 @@ func NewServer(mode string, port int) *Server {
 	svr.initEngine()
 	svr.initTemplateConfig()
 	svr.initDatabaseConfig()
+
+	setRoutes(svr)
+
+	return svr
 }
 
 func (svr *Server) initEngine() {
@@ -55,7 +61,7 @@ func (svr *Server) initEngineOnPrdMode() {
 }
 
 func (svr *Server) initTemplateConfig() {
-	svr.Engine.LoadHTMLGlob("templates/*")
+	svr.Engine.LoadHTMLGlob("server/templates/*")
 }
 
 func (svr *Server) initDatabaseConfig() {

@@ -12,28 +12,6 @@ import (
 	"time"
 )
 
-type Post struct {
-	ID        bson.ObjectId `bson:"_id,omitempty"`
-	Title     string
-	Content   string
-	CreatedAt time.Time
-	Appends   *[]Append
-	Replies   *[]Reply
-}
-
-type Append struct {
-	PostID    bson.ObjectId
-	Text      string
-	CreatedAt time.Time
-}
-
-type Reply struct {
-	PostID    bson.ObjectId
-	Text      string
-	ReplyTo   int
-	CreatedAt time.Time
-}
-
 func getAllPosts(c *gin.Context, db *mgo.Database) {
 	postCollection := db.C("post")
 	appendCollection := db.C("append")
@@ -131,53 +109,53 @@ func replyPost(c *gin.Context, db *mgo.Database) {
 	})
 }
 
-func main() {
-	fmt.Println("==> 🌎  Listening on port 8081. Open up http://localhost:8081/ in your browser.")
+// func main() {
+// 	fmt.Println("==> 🌎  Listening on port 8081. Open up http://localhost:8081/ in your browser.")
 
-	// setup database
-	session, err := mgo.Dial("127.0.0.1:27017")
-	if err != nil {
-		panic(err)
-	}
-	defer session.Close()
-	barDB := session.DB("bar")
+// 	// setup database
+// 	session, err := mgo.Dial("127.0.0.1:27017")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer session.Close()
+// 	barDB := session.DB("bar")
 
-	// init router
-	var router *gin.Engine
-	if "Production" == os.Getenv("ENV") {
-		logFile, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-		if err != nil {
-			fmt.Println("error opening log file")
-		}
-		defer logFile.Close()
+// 	// init router
+// 	var router *gin.Engine
+// 	if "Production" == os.Getenv("ENV") {
+// 		logFile, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+// 		if err != nil {
+// 			fmt.Println("error opening log file")
+// 		}
+// 		defer logFile.Close()
 
-		gin.DefaultWriter = io.Writer(logFile)
-		gin.SetMode(gin.ReleaseMode)
+// 		gin.DefaultWriter = io.Writer(logFile)
+// 		gin.SetMode(gin.ReleaseMode)
 
-		router = gin.New()
-		router.Use(gin.Logger())
-		router.StaticFile("./bundle.js", "./built/bundle.js")
-	} else {
-		gin.SetMode(gin.DebugMode)
-		router = gin.New()
-	}
-	router.LoadHTMLGlob("templates/*")
+// 		router = gin.New()
+// 		router.Use(gin.Logger())
+// 		router.StaticFile("./bundle.js", "./built/bundle.js")
+// 	} else {
+// 		gin.SetMode(gin.DebugMode)
+// 		router = gin.New()
+// 	}
+// 	router.LoadHTMLGlob("templates/*")
 
-	// setup routers
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"prd":   "Production" == os.Getenv("ENV"),
-			"title": "Bar of xhu",
-		})
-	})
+// 	// setup routers
+// 	router.GET("/", func(c *gin.Context) {
+// 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+// 			"prd":   "Production" == os.Getenv("ENV"),
+// 			"title": "Bar of xhu",
+// 		})
+// 	})
 
-	postRoutes := router.Group("/post")
-	{
-		postRoutes.GET("/", func(c *gin.Context) { getAllPosts(c, barDB) })
-		postRoutes.POST("/create", func(c *gin.Context) { createPost(c, barDB) })
-		postRoutes.POST("/append", func(c *gin.Context) { appendPost(c, barDB) })
-		postRoutes.POST("/reply", func(c *gin.Context) { replyPost(c, barDB) })
-	}
+// 	postRoutes := router.Group("/post")
+// 	{
+// 		postRoutes.GET("/", func(c *gin.Context) { getAllPosts(c, barDB) })
+// 		postRoutes.POST("/create", func(c *gin.Context) { createPost(c, barDB) })
+// 		postRoutes.POST("/append", func(c *gin.Context) { appendPost(c, barDB) })
+// 		postRoutes.POST("/reply", func(c *gin.Context) { replyPost(c, barDB) })
+// 	}
 
-	router.Run(":8081")
-}
+// 	router.Run(":8081")
+// }
