@@ -51,7 +51,7 @@ class PostText extends Component {
         borderTop : `2px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
       }}>
         <CardHeader
-          title = {processText(title)}
+          title = {<h3 style={styles.title}>processText(title)</h3>}
           subtitle = {dateFormat(createdAt, 'd/m/yyyy, H:MM:ss')}
 
         />
