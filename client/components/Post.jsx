@@ -165,7 +165,7 @@ class Post extends Component {
     const { data } = this.props;
 
     return (
-      <div>
+      <div style={{margin: '0 0 30px 0'}}>
         <div>
           <PostText
             parent = {this}
