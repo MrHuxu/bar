@@ -1,6 +1,6 @@
 export default {
   container : {
-    padding : 0
+    padding : '8px 0 8px 5px'
   },
 
   replyHeader : {
@@ -19,8 +19,8 @@ export default {
 
   replyBtnStyle : {
     padding : '0 0 0 10px',
-    width   : 20,
-    height  : 20
+    width   : 25,
+    height  : 25
   },
 
   replyIconStyle : {

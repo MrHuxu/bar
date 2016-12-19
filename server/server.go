@@ -37,7 +37,7 @@ func (svr *Server) initEngineOnDevMode() {
 }
 
 func (svr *Server) initEngineOnPrdMode() {
-	logFile, err := os.OpenFile("logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	logFile, err := os.OpenFile("server/logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println("error opening log file")
 	}
@@ -48,7 +48,7 @@ func (svr *Server) initEngineOnPrdMode() {
 
 	svr.Engine = gin.New()
 	svr.Engine.Use(gin.Logger())
-	svr.Engine.StaticFile("./bundle.js", "./built/bundle.js")
+	svr.Engine.StaticFile("./bundle.js", "server/built/bundle.js")
 }
 
 func (svr *Server) InitTemplateConfig(dir string) {

@@ -100,7 +100,7 @@ class Post extends Component {
   _append () {
     const { dispatch, data } = this.props;
 
-    dispatch(appendPostAjax(data.id, this.refs.appendForm.value));
+    dispatch(appendPostAjax(data.id, this.refs.appendForm.getValue()));
     this._quitAppend();
     $('html, body').animate({ scrollTop: 0 });  // eslint-disable-line
   }
@@ -126,7 +126,7 @@ class Post extends Component {
 
     dispatch(replyPostAjax(data.id, {
       replyTo : this.state.reply.replyTo,
-      text    : this.refs.replyForm.value
+      text    : this.refs.replyForm.getValue()
     }));
     this._quitReply();
     $('html, body').animate({ scrollTop: 0 });  // eslint-disable-line

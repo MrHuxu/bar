@@ -48,8 +48,7 @@ class PostText extends Component {
 
     return (
       <Card style = {{
-        borderTop  : `1px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`,
-        borderLeft : `1px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
+        borderTop : `2px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
       }}>
         <CardHeader
           title = {processText(title)}

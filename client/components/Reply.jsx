@@ -14,7 +14,7 @@ export default function renderReply ({ id, fakeId, data, reply }) {
   return (
     <ListItem
       key = {`post-${id}-comment-${fakeId}`}
-      style = {styles.container}
+      innerDivStyle = {styles.container}
       primaryText = {
         <div style = {styles.replyHeader}>
           <Chip
@@ -24,13 +24,14 @@ export default function renderReply ({ id, fakeId, data, reply }) {
             {`#${fakeId}`}
           </Chip>
 
-          { data.replyTo
-            ? <Chip
+          { data.replyTo ? (
+            <Chip
               style = {styles.timeChip}
               labelColor = '#888'
             >
               to #{data.replyTo}
-            </Chip> : null }
+            </Chip>
+           ) : null }
 
           {dateFormat(data.createdAt, 'd/m/yyyy, H:MM:ss')}
 

@@ -1,30 +1,30 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import { pink400 } from 'material-ui/styles/colors';
 
 export default function renderAppendForm (params) {
   return (
-    <div
-      className = 'ui secondary segment'
-      key = {`post-${params.id}-append`}
-    >
-      <div className = 'ui fluid left labeled action input'>
-        <input
-          ref = 'appendForm'
-          type = 'text'
-          placeholder = 'Append Content'
-        />
-        <button
-          className = 'ui button'
-          onClick = {this._quitAppend.bind(this)}
-        >
-          <i className = 'trash outline icon' />
-        </button>
-        <button
-          className = 'ui button'
-          onClick = {this._append.bind(this)}
-        >
-          <i className = 'save icon' />
-        </button>
-      </div>
+    <div key = {`post-${params.id}-append`}>
+      <TextField
+        ref = 'appendForm'
+        hintText = 'Append Content'
+        multiLine
+        rows = {2}
+        underlineFocusStyle = {{borderColor: pink400}}
+      />
+
+      <FlatButton
+        icon = {<ContentRemove />}
+        onClick = {this._quitAppend.bind(this)}
+      />
+
+      <FlatButton
+        icon = {<ContentSend />}
+        onClick = {this._append.bind(this)}
+      />
     </div>
   );
 };

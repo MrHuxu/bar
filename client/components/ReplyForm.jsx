@@ -1,29 +1,28 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+import ContentSend from 'material-ui/svg-icons/content/send';
 
 export default function renderReplyForm (params, replyTo) {
   return (
-    <div
-      key = {`post-${params.id}-reply-${replyTo}`}
-      className = 'ui fluid left labeled action input'
-    >
-      {replyTo ? <div className = 'ui label'>{`to #${replyTo}`}</div> : null}
-      <input
+    <div key = {`post-${params.id}-reply-${replyTo}`}>
+      {replyTo ? <FlatButton disabled> {`to #${replyTo}`}</FlatButton> : null }
+
+      <TextField
         ref = 'replyForm'
-        type = 'text'
-        placeholder = 'Reply Content'
+        hintText = 'Reply Content'
       />
-      <button
-        className = 'ui button'
+
+      <FlatButton
+        icon = {<ContentRemove />}
         onClick = {this._quitReply.bind(this)}
-      >
-        <i className = 'trash outline icon' />
-      </button>
-      <button
-        className = 'ui button'
+      />
+
+      <FlatButton
+        icon = {<ContentSend />}
         onClick = {this._reply.bind(this)}
-      >
-        <i className = 'save icon' />
-      </button>
+      />
     </div>
   );
 };
