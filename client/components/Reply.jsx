@@ -1,49 +1,50 @@
 import React from 'react';
 import dateFormat from 'dateformat';
 
+import Chip from 'material-ui/Chip';
+import { ListItem } from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import ContentReply from 'material-ui/svg-icons/content/reply';
+import { lightBlue700 } from 'material-ui/styles/colors';
+
 import { processText } from '../lib/surround-words-with-spaces';
 import styles from '../styles/reply';
 
-export default function renderReply (params) {
-  const { fakeId, data, reply } = params;
-
+export default function renderReply ({ id, fakeId, data, reply }) {
   return (
-    <div
-      key = {`post-${params.id}-comment-${fakeId}`}
-      className = 'ui comments'
+    <ListItem
+      key = {`post-${id}-comment-${fakeId}`}
       style = {styles.container}
-    >
-      <div className = 'comment'>
-        <div className = 'content'>
-          <span className = 'ui circular label'>
+      primaryText = {
+        <div style = {styles.replyHeader}>
+          <Chip
+            style = {styles.timeChip}
+            labelColor = '#888'
+          >
             {`#${fakeId}`}
-          </span>
+          </Chip>
+
           { data.replyTo
-            ? <span className = 'ui circular label'>
-              to #{data.replyTo}
-            </span> : null }
-          <span className = 'metadata'>
-            <div className = 'date'>{dateFormat(data.createdAt, 'd/m/yyyy, H:MM:ss')}</div>
-          </span>
-          <span
-            className = 'actions'
-            style = {styles.actionContainer}
-          >
-            <a
-              className = 'reply'
-              onClick = {reply}
+            ? <Chip
+              style = {styles.timeChip}
+              labelColor = '#888'
             >
-              Reply
-            </a>
-          </span>
-          <div
-            className = 'text'
-            style = {styles.text}
+              to #{data.replyTo}
+            </Chip> : null }
+
+          {dateFormat(data.createdAt, 'd/m/yyyy, H:MM:ss')}
+
+          <IconButton
+            style = {styles.replyBtnStyle}
+            iconStyle = {styles.replyIconStyle}
+            onClick = {reply}
           >
-            {processText(data.text)}
-          </div>
+            <ContentReply color = {lightBlue700} />
+          </IconButton>
+
         </div>
-      </div>
-    </div>
+      }
+      secondaryText = {processText(data.text)}
+    />
   );
 }

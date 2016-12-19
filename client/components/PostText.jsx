@@ -1,10 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
+import Radium, { Style } from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
 
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400, yellow400, amber400, orange400, deepOrange400, brown400, blueGrey400, grey400 } from 'material-ui/styles/colors';
+const Colors = [red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400, yellow400, amber400, orange400, deepOrange400, brown400, blueGrey400, grey400];
+
 import { processText, processElement } from '../lib/surround-words-with-spaces';
-import renderHead from './PostHeader';
+import { renderAppend } from './Append';
 import styles from '../styles/post-text';
 
 @Radium
@@ -39,39 +44,56 @@ class PostText extends Component {
 
   render () {
     const { parent, params } = this.props;
-
-    var textArea = params.appends.reduce((prev, cur, index, arr) => {
-      prev.push(
-        <div
-          key = {`post-${params.id}-append-${index}`}
-          className = 'ui secondary segment'
-        >
-          <span className = 'ui label'>
-            {dateFormat(cur.createdAt, 'd/m/yyyy, H:MM:ss')}
-          </span>
-          <span style = {styles.text}> {processText(cur.text)} </span>
-        </div>
-      );
-      return prev;
-    }, [
-      <div
-        key = {`post-${params.id}-main-content`}
-        className = 'ui segment'
-      >
-        {renderHead.call(parent, params)}
-        <span
-          ref = 'textAreaElem'
-          style = {styles.text}
-        >
-          <div dangerouslySetInnerHTML = {{ __html: parse(params.content) }} />
-        </span>
-      </div>
-    ]);
+    const { id, title, createdAt, content, appends } = params;
 
     return (
-      <div className = 'ui piled segments'>
-        {textArea}
-      </div>
+      <Card style = {{
+        borderTop  : `1px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`,
+        borderLeft : `1px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
+      }}>
+        <CardHeader
+          title = {processText(title)}
+          subtitle = {dateFormat(createdAt, 'd/m/yyyy, H:MM:ss')}
+
+        />
+
+        <CardText style = {styles.container}>
+          <Style
+            scopeSelector = '.post-text'
+            rules = {styles.postText}
+          />
+
+          <div
+            ref = 'textAreaElem'
+            className = 'post-text'
+            dangerouslySetInnerHTML = {{ __html: parse(content) }}
+          />
+
+          {appends.reduce((prev, cur, index, arr) => {
+            prev.push(renderAppend({
+              postId : id,
+              append : cur,
+              index  : index
+            }));
+            return prev;
+          }, [])}
+
+        </CardText>
+
+        <CardActions>
+          <FlatButton
+            label = 'Append'
+            secondary
+            onClick = {parent._enterAppend.bind(parent)}
+          />
+          <FlatButton
+            label = 'Reply'
+            primary
+            onClick = {parent._enterReply.bind(parent, null)}
+          />
+        </CardActions>
+
+      </Card>
     );
   }
 }

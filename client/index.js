@@ -2,14 +2,20 @@ import React from 'react';
 import { StyleRoot } from 'radium';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { rootStore } from './store';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 import App from './components/App';
 
 render(
   <StyleRoot>
     <Provider store = {rootStore}>
-      <App />
+      <MuiThemeProvider>
+        <App />
+      </MuiThemeProvider>
     </Provider>
   </StyleRoot>,
   document.getElementById('bar-of-xhu')

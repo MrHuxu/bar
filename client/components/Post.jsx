@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Style } from 'radium';
+
+import { List } from 'material-ui/List';
 
 import PostText from './PostText';
 import renderAppendForm from './AppendForm';
 import renderReply from './Reply';
 import renderReplyForm from './ReplyForm';
 import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
-import styles from '../styles/post';
 
 class Post extends Component {
   static propTypes = {
@@ -154,23 +154,26 @@ class Post extends Component {
     }, []);
     replyArea.push(this.state.reply.replying ? renderReplyForm.call(this, data, this.state.reply.replyTo) : null);
 
-    return replyArea;
+    return (
+      <List>
+        {replyArea}
+      </List>
+    );
   }
 
   render () {
     const { data } = this.props;
 
     return (
-      <div style = {styles.container}>
-        <Style rules = {styles.global} />
-        <div className = 'timeline-item'>
+      <div>
+        <div>
           <PostText
             parent = {this}
             params = {data}
           />
           {this.state.appending ? renderAppendForm.call(this, data) : null}
         </div>
-        <div style = {styles.replyArea}>
+        <div>
           {this.renderReplyArea(data)}
         </div>
       </div>

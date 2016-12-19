@@ -10,10 +10,6 @@ class App extends Component {
     return (
       <div>
         <Style rules = {styles.global} />
-        <div style = {styles.leftPanel}>
-          <p> Take care of every word you input </p>
-          <p> In a bar, what is done is done </p>
-        </div>
         <div style = {styles.rightPanel}>
           <PostList />
         </div>

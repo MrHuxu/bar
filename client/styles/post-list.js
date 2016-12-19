@@ -1,12 +1,12 @@
 export default {
   container : {
-    borderLeft : '4px solid #f9f9f9',
-    margin     : '20px 10% 0 10%'
+    borderLeft : '4px solid #f9f9f9'
   },
 
   postCol : {
     display       : 'inline-block',
     verticalAlign : 'top',
-    width         : '25%'
+    padding       : 10,
+    width         : `${(100 / 3).toString()}%`
   }
 };

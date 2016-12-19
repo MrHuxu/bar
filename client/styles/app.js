@@ -24,8 +24,7 @@ export default {
   rightPanel : {
     display       : 'inline-block',
     verticalAlign : 'top',
-    margin        : '0 0 0 15%',
     height        : '100%',
-    width         : '85%'
+    width         : '100%'
   }
 };
