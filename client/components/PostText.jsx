@@ -9,13 +9,13 @@ import { red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400,
 const Colors = [red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400, yellow400, amber400, orange400, deepOrange400, brown400, blueGrey400, grey400];
 
 import { processText, processElement } from '../lib/surround-words-with-spaces';
-import { renderAppend } from './Append';
+import Append from './Append';
 import styles from '../styles/post-text';
 
 @Radium
 class PostText extends Component {
   static propTypes = {
-    parent : PropTypes.object.isRequired,
+    post   : PropTypes.object.isRequired,
     params : PropTypes.shape({
       id        : PropTypes.string.isRquired,
       title     : PropTypes.string.isRequired,
@@ -43,7 +43,7 @@ class PostText extends Component {
   }
 
   render () {
-    const { parent, params } = this.props;
+    const { post, params } = this.props;
     const { id, title, createdAt, content, appends } = params;
 
     return (
@@ -51,7 +51,7 @@ class PostText extends Component {
         borderTop : `2px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
       }}>
         <CardHeader
-          title = {<h3 style={styles.title}>{processText(title)}</h3>}
+          title = {<h3 style = {styles.title}>{processText(title)}</h3>}
           subtitle = {dateFormat(createdAt, 'd/m/yyyy, H:MM:ss')}
 
         />
@@ -69,11 +69,13 @@ class PostText extends Component {
           />
 
           {appends.reduce((prev, cur, index, arr) => {
-            prev.push(renderAppend({
-              postId : id,
-              append : cur,
-              index  : index
-            }));
+            prev.push(
+              <Append
+                postId = {id}
+                append = {cur}
+                index = {index}
+              />
+            );
             return prev;
           }, [])}
 
@@ -83,12 +85,12 @@ class PostText extends Component {
           <FlatButton
             label = 'Append'
             secondary
-            onClick = {parent._enterAppend.bind(parent)}
+            onClick = {post._enterAppend.bind(post)}
           />
           <FlatButton
             label = 'Reply'
             primary
-            onClick = {parent._enterReply.bind(parent, null)}
+            onClick = {post._enterReply.bind(post, null)}
           />
         </CardActions>
 

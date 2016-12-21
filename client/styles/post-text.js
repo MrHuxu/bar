@@ -3,8 +3,8 @@ export default {
     padding : 0
   },
 
-  title: {
-    margin: '0 0 8px 0'
+  title : {
+    margin : '0 0 8px 0'
   },
 
   postText : {

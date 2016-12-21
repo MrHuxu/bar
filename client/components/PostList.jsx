@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import CreateForm from './CreateForm';
 import Post from './Post';
 import { fetchPosts } from '../actions/PostActions';
 import styles from '../styles/post-list';
@@ -50,7 +49,6 @@ class PostList extends Component {
   render () {
     return (
       <div style = {styles.container}>
-        <CreateForm />
         {this.renderPosts()}
       </div>
     );

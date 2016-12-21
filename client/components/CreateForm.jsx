@@ -1,90 +1,62 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Dialog from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import { pink700, green500 } from 'material-ui/styles/colors';
 
 import { createPostAjax } from '../actions/PostActions';
-import styles from '../styles/create-form';
 
-class CreateForm extends Component {
-  static propTypes = {
-    dispatch : PropTypes.func.isRequired
-  };
+const create = (dispatch, changeCreateStatus) => {
+  var creatingTitle = $(`#post-creating-title`).val();   // eslint-disable-line
+  var creatingContent = $(`#post-creating-content`).val();   // eslint-disable-line
 
-  constructor (props) {
-    super(props);
+  dispatch(createPostAjax(
+    creatingTitle,
+    creatingContent
+  ));
+  changeCreateStatus(false);
+};
 
-    this.state = {
-      editing : false
-    };
-  }
+const CreateForm = ({ dispatch, creating, changeCreateStatus }) => (
+  <Dialog
+    title = 'Create Post'
+    modal = {false}
+    open = {creating}
+    onRequestClose = {changeCreateStatus.bind(null, false)}
+  >
+    <TextField
+      fullWidth
+      id = 'post-creating-title'
+      floatingLabelText = 'postTitle'
+    />
 
-  componentDidUpdate (prevProps, prevState) {
-    const { postTitle } = this.refs;
+    <TextField
+      fullWidth
+      id = 'post-creating-content'
+      floatingLabelText = 'Post Content'
+      multiLine
+      rows = {9}
+    />
 
-    if (postTitle) postTitle.focus();
-  }
+    <FlatButton
+      icon = {<ContentRemove color = {pink700} />}
+      onClick = {changeCreateStatus.bind(null, false)}
+    />
 
-  _changeEditStatus (event, status) {
-    this.setState({
-      editing : status === undefined ? !this.state.editing : status
-    });
-  }
+    <FlatButton
+      icon = {<ContentSend color = {green500} />}
+      onClick = {create.bind(null, dispatch, changeCreateStatus)}
+    />
+  </Dialog>
+);
 
-  _submit () {
-    this.props.dispatch(createPostAjax(
-      this.refs.postTitle.value,
-      this.refs.postContent.value
-    ));
-    this._changeEditStatus(false);
-  }
-
-  render () {
-    return (
-      <div
-        className = 'timeline-item'
-        style = {styles.container}
-      >
-        <button
-          className = 'ui basic button'
-          onClick = {this._changeEditStatus.bind(this)}
-        >
-          <i className = 'add square icon' />
-          <span>Add Post</span>
-        </button>
-
-        { this.state.editing
-          ? <div style = {styles.form}>
-            <div className = 'ui form'>
-              <div className = 'field'>
-                <input
-                  ref = 'postTitle'
-                  type = 'text'
-                  placeholder = 'Title'
-                />
-              </div>
-              <div className = 'field'>
-                <textarea
-                  ref = 'postContent'
-                  placeholder = 'Content'
-                />
-              </div>
-              <button
-                className = 'ui button'
-                onClick = {this._changeEditStatus.bind(this, null, false)}
-              >
-                <i className = 'trash outline icon' />
-              </button>
-              <button
-                className = 'ui button'
-                onClick = {this._submit.bind(this)}
-              >
-                <i className = 'save icon' />
-              </button>
-            </div>
-          </div> : null }
-
-      </div>
-    );
-  }
-}
+CreateForm.propTypes = {
+  dispatch           : PropTypes.func.isRequired,
+  creating           : PropTypes.bool.isRequired,
+  changeCreateStatus : PropTypes.func.isRequired
+};
 
 export default connect()(CreateForm);

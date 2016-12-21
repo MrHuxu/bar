@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import { List } from 'material-ui/List';
-
 import PostText from './PostText';
-import renderAppendForm from './AppendForm';
-import renderReply from './Reply';
-import renderReplyForm from './ReplyForm';
-import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
+import AppendForm from './AppendForm';
+import Reply from './Reply';
+import ReplyForm from './ReplyForm';
 
 class Post extends Component {
   static propTypes = {
@@ -41,52 +37,6 @@ class Post extends Component {
     };
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    const { appendForm, replyForm } = this.refs;
-    if (appendForm) this._bindEventsToAppendForm();
-    if (replyForm) this._bindEventsToReplyForm();
-  }
-
-  _bindEventsToAppendForm () {
-    this.refs.appendForm.onfocus = (e) => {
-      this.refs.appendForm.onkeypress = (e) => {
-        switch (e.keyCode) {
-          case 13:
-            this._append();
-            break;
-
-          case 27:
-            this._quitAppend();
-            break;
-
-          default:
-            break;
-        }
-      };
-    };
-    this.refs.appendForm.focus();
-  }
-
-  _bindEventsToReplyForm () {
-    this.refs.replyForm.onfocus = (e) => {
-      this.refs.replyForm.onkeypress = (e) => {
-        switch (e.keyCode) {
-          case 13:
-            this._reply();
-            break;
-
-          case 27:
-            this._quitReply();
-            break;
-
-          default:
-            break;
-        }
-      };
-    };
-    this.refs.replyForm.focus();
-  }
-
   _enterAppend () {
     this.setState({
       appending : true,
@@ -95,14 +45,6 @@ class Post extends Component {
         replyTo  : null
       }
     });
-  }
-
-  _append () {
-    const { dispatch, data } = this.props;
-
-    dispatch(appendPostAjax(data.id, this.refs.appendForm.getValue()));
-    this._quitAppend();
-    $('html, body').animate({ scrollTop: 0 });  // eslint-disable-line
   }
 
   _quitAppend () {
@@ -121,17 +63,6 @@ class Post extends Component {
     });
   }
 
-  _reply () {
-    const { dispatch, data } = this.props;
-
-    dispatch(replyPostAjax(data.id, {
-      replyTo : this.state.reply.replyTo,
-      text    : this.refs.replyForm.getValue()
-    }));
-    this._quitReply();
-    $('html, body').animate({ scrollTop: 0 });  // eslint-disable-line
-  }
-
   _quitReply () {
     this.setState({
       reply : {
@@ -141,41 +72,41 @@ class Post extends Component {
     });
   }
 
-  renderReplyArea (data) {
-    var replyArea = data.replies.reduce((prev, cur, index) => {
-      prev.push(
-        renderReply({
-          fakeId : index + 1,
-          data   : cur,
-          reply  : this._enterReply.bind(this, index + 1)
-        })
-      );
-      return prev;
-    }, []);
-    replyArea.push(this.state.reply.replying ? renderReplyForm.call(this, data, this.state.reply.replyTo) : null);
-
-    return (
-      <List>
-        {replyArea}
-      </List>
-    );
-  }
-
   render () {
     const { data } = this.props;
 
     return (
-      <div style={{margin: '0 0 30px 0'}}>
-        <div>
-          <PostText
-            parent = {this}
-            params = {data}
+      <div style = {{margin: '0 0 30px 0'}}>
+        <PostText
+          post = {this}
+          params = {data}
+        />
+
+        {this.state.appending ? (
+          <AppendForm
+            post = {data}
+            quitAppend = {this._quitAppend.bind(this)}
           />
-          {this.state.appending ? renderAppendForm.call(this, data) : null}
-        </div>
-        <div>
-          {this.renderReplyArea(data)}
-        </div>
+        ) : null}
+
+        {data.replies.reduce((prev, cur, index) => {
+          prev.push(
+            <Reply
+              fakeId = {index + 1}
+              data = {cur}
+              enterReply = {this._enterReply.bind(this, index + 1)}
+            />
+          );
+          return prev;
+        }, [])}
+
+        {this.state.reply.replying ? (
+          <ReplyForm
+            post = {data}
+            replyTo = {this.state.reply.replyTo}
+            quitReply = {this._quitReply.bind(this)}
+          />
+        ) : null}
       </div>
     );
   }
