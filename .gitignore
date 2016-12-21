@@ -10,3 +10,4 @@ dump.rdb
 main
 server/logfile.log
 server/built/
+server/questions.json
