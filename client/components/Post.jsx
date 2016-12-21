@@ -5,7 +5,7 @@ import { List } from 'material-ui/List';
 
 import PostText from './PostText';
 import renderAppendForm from './AppendForm';
-import renderReply from './Reply';
+import Reply from './Reply';
 import renderReplyForm from './ReplyForm';
 import { appendPostAjax, replyPostAjax } from '../actions/PostActions';
 
@@ -144,11 +144,11 @@ class Post extends Component {
   renderReplyArea (data) {
     var replyArea = data.replies.reduce((prev, cur, index) => {
       prev.push(
-        renderReply({
-          fakeId : index + 1,
-          data   : cur,
-          reply  : this._enterReply.bind(this, index + 1)
-        })
+        <Reply
+          fakeId = {index + 1}
+          data = {cur}
+          reply = {this._enterReply.bind(this, index + 1)}
+        />
       );
       return prev;
     }, []);
