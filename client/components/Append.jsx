@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import dateFormat from 'dateformat';
 
 import Divider from 'material-ui/Divider';
@@ -21,5 +21,14 @@ const Append = ({ append, postId, index }) => (
     </div>
   </div>
 );
+
+Append.propTypes = {
+  append : PropTypes.shape({
+    text      : PropTypes.string.isRequired,
+    createdAt : PropTypes.object.isRequired
+  }).isRequired,
+  postId : PropTypes.string.isRequired,
+  index  : PropTypes.number.isRequired
+};
 
 export default Append;

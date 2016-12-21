@@ -7,8 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import { blueGrey500 } from 'material-ui/styles/colors';
 
-import { renderCreateForm } from './CreateForm';
-import { createPostAjax } from '../actions/PostActions';
+import CreateForm from './CreateForm';
 
 class Menu extends Component {
   static propTypes = {
@@ -29,24 +28,11 @@ class Menu extends Component {
     this.setState({ creating: status });
   }
 
-  _create () {
-    this.props.dispatch(createPostAjax(
-      this.refs.postTitle.getValue(),
-      this.refs.postContent.getValue()
-    ));
-    this._changeCreateStatus(false);
-  }
-
   _changeAskStatus (status) {
     this.setState({ asking: status });
   }
 
   _ask () {
-    this.props.dispatch(createPostAjax(
-      this.refs.postTitle.getValue(),
-      this.refs.postContent.getValue()
-    ));
-    this._changeAskStatus(false);
   }
 
   render () {
@@ -68,7 +54,10 @@ class Menu extends Component {
           </ToolbarGroup>
         </Toolbar>
 
-        {renderCreateForm.call(this)}
+        <CreateForm
+          creating = {this.state.creating}
+          changeCreateStatus = {this._changeCreateStatus.bind(this)}
+        />
 
         <Dialog
           title = 'Dialog With Actions'

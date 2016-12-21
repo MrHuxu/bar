@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import dateFormat from 'dateformat';
 
 import Chip from 'material-ui/Chip';
@@ -10,7 +10,7 @@ import { lightBlue700 } from 'material-ui/styles/colors';
 import { processText } from '../lib/surround-words-with-spaces';
 import styles from '../styles/reply';
 
-const Reply = ({ id, fakeId, data, reply }) => (
+const Reply = ({ id, fakeId, data, enterReply }) => (
   <ListItem
     key = {`post-${id}-comment-${fakeId}`}
     innerDivStyle = {styles.container}
@@ -37,7 +37,7 @@ const Reply = ({ id, fakeId, data, reply }) => (
         <IconButton
           style = {styles.replyBtnStyle}
           iconStyle = {styles.replyIconStyle}
-          onClick = {reply}
+          onClick = {enterReply}
         >
           <ContentReply color = {lightBlue700} />
         </IconButton>
@@ -47,5 +47,16 @@ const Reply = ({ id, fakeId, data, reply }) => (
     secondaryText = {processText(data.text)}
   />
 );
+
+Reply.propTypes = {
+  id     : PropTypes.string.isRequired,
+  fakeId : PropTypes.number.isRequired,
+  data   : PropTypes.shape({
+    text      : PropTypes.string.isRequired,
+    replyTo   : PropTypes.number,
+    createdAt : PropTypes.object.isRequired
+  }),
+  enterReply : PropTypes.func.isRequired
+};
 
 export default Reply;

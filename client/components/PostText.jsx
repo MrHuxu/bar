@@ -15,7 +15,7 @@ import styles from '../styles/post-text';
 @Radium
 class PostText extends Component {
   static propTypes = {
-    parent : PropTypes.object.isRequired,
+    post   : PropTypes.object.isRequired,
     params : PropTypes.shape({
       id        : PropTypes.string.isRquired,
       title     : PropTypes.string.isRequired,
@@ -43,7 +43,7 @@ class PostText extends Component {
   }
 
   render () {
-    const { parent, params } = this.props;
+    const { post, params } = this.props;
     const { id, title, createdAt, content, appends } = params;
 
     return (
@@ -85,12 +85,12 @@ class PostText extends Component {
           <FlatButton
             label = 'Append'
             secondary
-            onClick = {parent._enterAppend.bind(parent)}
+            onClick = {post._enterAppend.bind(post)}
           />
           <FlatButton
             label = 'Reply'
             primary
-            onClick = {parent._enterReply.bind(parent, null)}
+            onClick = {post._enterReply.bind(post, null)}
           />
         </CardActions>
 
