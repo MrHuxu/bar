@@ -1,25 +1,41 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
 	"io"
+	"io/ioutil"
 	"os"
 	"strconv"
 )
 
 type Server struct {
-	Port   string
-	Engine *gin.Engine
-	Mode   string
-	DBPort string
-	DB     *mgo.Database
+	Port      string
+	Engine    *gin.Engine
+	Mode      string
+	DBPort    string
+	DB        *mgo.Database
+	Questions map[string]string
 }
 
 func NewServer() *Server {
 	svr := &Server{}
 	return svr
+}
+
+func (svr *Server) InitQuestions(file string) {
+	raw, err := ioutil.ReadFile(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var questions []Question
+	json.Unmarshal(raw, &questions)
+
+	for _, question := range questions {
+		svr.Questions[question.Label] = question.Answer
+	}
 }
 
 func (svr *Server) InitEngine(mode string) {
