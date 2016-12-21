@@ -24,6 +24,6 @@ func SetRoutes(svr *Server) {
 	authRoutes := svr.Engine.Group("/auth")
 	{
 		authRoutes.GET("/question", func(c *gin.Context) { fetchQuestion(c, svr.Questions) })
-		authRoutes.POST("/answer", func(c *gin.Context) { answerQuestion(c, svr.Questions) })
+		authRoutes.GET("/answer", func(c *gin.Context) { answerQuestion(c, svr.Questions) })
 	}
 }

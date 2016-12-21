@@ -33,6 +33,7 @@ func (svr *Server) InitQuestions(file string) {
 	var questions []Question
 	json.Unmarshal(raw, &questions)
 
+	svr.Questions = make(map[string]string)
 	for _, question := range questions {
 		svr.Questions[question.Label] = question.Answer
 	}
