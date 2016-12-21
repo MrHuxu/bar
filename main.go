@@ -7,6 +7,7 @@ import (
 
 var MODE = os.Getenv("ENV")
 var TEMPLATE_DIR = "server/templates/*"
+var QUESTIONS_FILE = "server/questions.json"
 var PORT = 8081
 var MONGO_PORT = 27017
 
@@ -15,6 +16,7 @@ func main() {
 
 	barServer.InitEngine(MODE)
 	barServer.InitTemplateConfig(TEMPLATE_DIR)
+	barServer.InitQuestions(QUESTIONS_FILE)
 	barServer.InitDatabaseConfig(MONGO_PORT)
 	server.SetRoutes(barServer)
 

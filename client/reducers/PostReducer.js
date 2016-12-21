@@ -7,7 +7,6 @@ import {
 } from '../actions/PostActions';
 
 export function post (state = {
-  editable : false,
   ids      : immutable.List([]),
   entities : immutable.Map({})
 }, action) {
