@@ -92,6 +92,7 @@ class Post extends Component {
         {data.replies.reduce((prev, cur, index) => {
           prev.push(
             <Reply
+              key = {`post-${data.id}-reply-${index}`}
               fakeId = {index + 1}
               data = {cur}
               enterReply = {this._enterReply.bind(this, index + 1)}

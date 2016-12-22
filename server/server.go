@@ -1,12 +1,10 @@
 package server
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
 	"io"
-	"io/ioutil"
 	"os"
 	"strconv"
 )
@@ -26,13 +24,7 @@ func NewServer() *Server {
 }
 
 func (svr *Server) InitQuestions(file string) {
-	raw, err := ioutil.ReadFile(file)
-	if err != nil {
-		fmt.Println(err)
-	}
-	var questions []Question
-	json.Unmarshal(raw, &questions)
-
+	questions := Question{}.LoadQuestions(file)
 	svr.Questions = make(map[string]string)
 	for _, question := range questions {
 		svr.Questions[question.Label] = question.Answer

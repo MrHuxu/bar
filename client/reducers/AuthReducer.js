@@ -1,13 +1,33 @@
-import immutable from 'immutable';
 import {
-  CREATE_POST,
-  APPEND_POST,
-  REPLY_POST,
-  REFRESH_POSTS
-} from '../actions/PostActions';
+  GET_QUESTION,
+  VALIDATE_ANSWER,
+  SHOW_NOTIFY
+} from '../actions/AuthActions';
 
 export function auth (state = {
-  editable: false
+  editable      : false,
+  questionLabel : '',
+  notify        : { show: false }
 }, action) {
-  return state;
+  var copy = Object.assign({}, state);
+  const { type, content } = action;
+
+  switch (type) {
+    case GET_QUESTION:
+      copy.questionLabel = content;
+      break;
+
+    case VALIDATE_ANSWER:
+      copy.editable = content;
+      break;
+
+    case SHOW_NOTIFY:
+      copy.notify = { show: true };
+      break;
+
+    default:
+      break;
+  }
+
+  return copy;
 }

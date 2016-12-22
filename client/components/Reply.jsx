@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
 
 import Chip from 'material-ui/Chip';
@@ -10,7 +11,7 @@ import { lightBlue700 } from 'material-ui/styles/colors';
 import { processText } from '../lib/surround-words-with-spaces';
 import styles from '../styles/reply';
 
-const Reply = ({ id, fakeId, data, enterReply }) => (
+const Reply = ({ id, fakeId, data, enterReply, editable }) => (
   <ListItem
     key = {`post-${id}-comment-${fakeId}`}
     innerDivStyle = {styles.container}
@@ -35,6 +36,7 @@ const Reply = ({ id, fakeId, data, enterReply }) => (
         {dateFormat(data.createdAt, 'd/m/yyyy, H:MM:ss')}
 
         <IconButton
+          disabled = {!editable}
           style = {styles.replyBtnStyle}
           iconStyle = {styles.replyIconStyle}
           onClick = {enterReply}
@@ -49,14 +51,21 @@ const Reply = ({ id, fakeId, data, enterReply }) => (
 );
 
 Reply.propTypes = {
-  id     : PropTypes.string.isRequired,
+  id     : PropTypes.string,
   fakeId : PropTypes.number.isRequired,
   data   : PropTypes.shape({
     text      : PropTypes.string.isRequired,
     replyTo   : PropTypes.number,
     createdAt : PropTypes.object.isRequired
   }),
-  enterReply : PropTypes.func.isRequired
+  enterReply : PropTypes.func.isRequired,
+  editable   : PropTypes.bool.isRequired
 };
 
-export default Reply;
+const mapStateToProps = ({ auth }) => {
+  return {
+    editable : auth.editable
+  };
+};
+
+export default connect(mapStateToProps)(Reply);

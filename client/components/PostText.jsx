@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Radium, { Style } from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
@@ -15,8 +16,9 @@ import styles from '../styles/post-text';
 @Radium
 class PostText extends Component {
   static propTypes = {
-    post   : PropTypes.object.isRequired,
-    params : PropTypes.shape({
+    post     : PropTypes.object.isRequired,
+    editable : PropTypes.bool.isRequired,
+    params   : PropTypes.shape({
       id        : PropTypes.string.isRquired,
       title     : PropTypes.string.isRequired,
       content   : PropTypes.string.isRequired,
@@ -71,6 +73,7 @@ class PostText extends Component {
           {appends.reduce((prev, cur, index, arr) => {
             prev.push(
               <Append
+                key = {`post-${id}-append-${index}`}
                 postId = {id}
                 append = {cur}
                 index = {index}
@@ -85,11 +88,13 @@ class PostText extends Component {
           <FlatButton
             label = 'Append'
             secondary
+            disabled = {!this.props.editable}
             onClick = {post._enterAppend.bind(post)}
           />
           <FlatButton
             label = 'Reply'
             primary
+            disabled = {!this.props.editable}
             onClick = {post._enterReply.bind(post, null)}
           />
         </CardActions>
@@ -99,4 +104,10 @@ class PostText extends Component {
   }
 }
 
-export default PostText;
+const mapStateToProps = ({ auth }) => {
+  return {
+    editable : auth.editable
+  };
+};
+
+export default connect(mapStateToProps)(PostText);

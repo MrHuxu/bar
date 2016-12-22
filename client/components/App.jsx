@@ -3,6 +3,7 @@ import Radium, { Style } from 'radium';
 
 import Menu from './Menu';
 import PostList from './PostList';
+import Notify from './Notify';
 import styles from '../styles/app';
 
 @Radium
@@ -14,6 +15,7 @@ class App extends Component {
         <div style = {styles.rightPanel}>
           <Menu />
           <PostList />
+          <Notify />
         </div>
       </div>
     );

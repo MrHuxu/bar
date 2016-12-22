@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
@@ -9,54 +9,59 @@ import { pink700, green500 } from 'material-ui/styles/colors';
 
 import { createPostAjax } from '../actions/PostActions';
 
-const create = (dispatch, changeCreateStatus) => {
-  var creatingTitle = $(`#post-creating-title`).val();   // eslint-disable-line
-  var creatingContent = $(`#post-creating-content`).val();   // eslint-disable-line
+class CreateForm extends Component {
+  static propTypes = {
+    dispatch           : PropTypes.func.isRequired,
+    creating           : PropTypes.bool.isRequired,
+    changeCreateStatus : PropTypes.func.isRequired
+  };
 
-  dispatch(createPostAjax(
-    creatingTitle,
-    creatingContent
-  ));
-  changeCreateStatus(false);
-};
+  _create () {
+    const { dispatch, changeCreateStatus } = this.props;
 
-const CreateForm = ({ dispatch, creating, changeCreateStatus }) => (
-  <Dialog
-    title = 'Create Post'
-    modal = {false}
-    open = {creating}
-    onRequestClose = {changeCreateStatus.bind(null, false)}
-  >
-    <TextField
-      fullWidth
-      id = 'post-creating-title'
-      floatingLabelText = 'postTitle'
-    />
+    dispatch(createPostAjax(
+      this.refs.creatingTitle.getValue(),
+      this.refs.creatingContent.getValue()
+    ));
+    changeCreateStatus(false);
+  }
 
-    <TextField
-      fullWidth
-      id = 'post-creating-content'
-      floatingLabelText = 'Post Content'
-      multiLine
-      rows = {9}
-    />
+  render () {
+    const { creating, changeCreateStatus } = this.props;
 
-    <FlatButton
-      icon = {<ContentRemove color = {pink700} />}
-      onClick = {changeCreateStatus.bind(null, false)}
-    />
+    return (
+      <Dialog
+        title = 'Create Post'
+        modal = {false}
+        open = {creating}
+        onRequestClose = {changeCreateStatus.bind(null, false)}
+      >
+        <TextField
+          fullWidth
+          ref = 'creatingTitle'
+          floatingLabelText = 'postTitle'
+        />
 
-    <FlatButton
-      icon = {<ContentSend color = {green500} />}
-      onClick = {create.bind(null, dispatch, changeCreateStatus)}
-    />
-  </Dialog>
-);
+        <TextField
+          fullWidth
+          ref = 'creatingContent'
+          floatingLabelText = 'Post Content'
+          multiLine
+          rows = {9}
+        />
 
-CreateForm.propTypes = {
-  dispatch           : PropTypes.func.isRequired,
-  creating           : PropTypes.bool.isRequired,
-  changeCreateStatus : PropTypes.func.isRequired
-};
+        <FlatButton
+          icon = {<ContentRemove color = {pink700} />}
+          onClick = {changeCreateStatus.bind(null, false)}
+        />
+
+        <FlatButton
+          icon = {<ContentSend color = {green500} />}
+          onClick = {this._create.bind(this)}
+        />
+      </Dialog>
+    );
+  }
+}
 
 export default connect()(CreateForm);
