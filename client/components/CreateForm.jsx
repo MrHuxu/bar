@@ -20,8 +20,8 @@ class CreateForm extends Component {
     const { dispatch, changeCreateStatus } = this.props;
 
     dispatch(createPostAjax(
-      this.refs.creatingTitle.getValue(),
-      this.refs.creatingContent.getValue()
+      this.refs.postTitle.getValue(),
+      this.refs.postContent.getValue()
     ));
     changeCreateStatus(false);
   }
@@ -38,13 +38,13 @@ class CreateForm extends Component {
       >
         <TextField
           fullWidth
-          ref = 'creatingTitle'
-          floatingLabelText = 'postTitle'
+          ref = 'postTitle'
+          floatingLabelText = 'Post Title'
         />
 
         <TextField
           fullWidth
-          ref = 'creatingContent'
+          ref = 'postContent'
           floatingLabelText = 'Post Content'
           multiLine
           rows = {9}

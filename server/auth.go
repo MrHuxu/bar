@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"math/rand"
+	"strings"
 )
 
 type Question struct {
@@ -42,6 +43,6 @@ func answerQuestion(c *gin.Context, questions map[string]string) {
 
 	c.JSON(200, gin.H{
 		"result": "success",
-		"valid":  questions[label] == answer,
+		"valid":  questions[label] == strings.ToLower(answer),
 	})
 }
