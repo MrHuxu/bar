@@ -1,5 +1,6 @@
 import {
   GET_QUESTION,
+  CLEAR_QUESTION,
   VALIDATE_ANSWER,
   SHOW_NOTIFY
 } from '../actions/AuthActions';
@@ -15,6 +16,10 @@ export function auth (state = {
   switch (type) {
     case GET_QUESTION:
       copy.questionLabel = content;
+      break;
+
+    case CLEAR_QUESTION:
+      copy.questionLabel = '';
       break;
 
     case VALIDATE_ANSWER:

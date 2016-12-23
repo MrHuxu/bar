@@ -43,6 +43,7 @@ class AppendForm extends Component {
     return (
       <div key = {`post-${post.id}-appending`}>
         <TextField
+          autoFocus
           hintText = 'Append Content'
           ref = 'appendContent'
           multiLine

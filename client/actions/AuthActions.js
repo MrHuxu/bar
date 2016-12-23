@@ -8,6 +8,13 @@ export const getQuestion = (label) => {
   };
 };
 
+export const CLEAR_QUESTION = 'CLEAR_QUESTION';
+export const clearQuestion = () => {
+  return {
+    type : CLEAR_QUESTION
+  };
+};
+
 export const VALIDATE_ANSWER = 'VALIDATE_ANSWER';
 export const validateAnswer = (valid) => {
   return {

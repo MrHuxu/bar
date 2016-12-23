@@ -48,6 +48,7 @@ class ReplyForm extends Component {
         {replyTo ? <FlatButton disabled> {`to #${replyTo}`}</FlatButton> : null }
 
         <TextField
+          autoFocus
           ref = 'replyContent'
           hintText = 'Reply Content'
         />

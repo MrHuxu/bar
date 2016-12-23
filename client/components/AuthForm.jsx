@@ -4,9 +4,10 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import ContentSend from 'material-ui/svg-icons/content/send';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { orange500, tealA700 } from 'material-ui/styles/colors';
 
-import { getQuestionAjax, validateAnswerAjax } from '../actions/AuthActions';
+import { getQuestionAjax, clearQuestion, validateAnswerAjax } from '../actions/AuthActions';
 
 class AuthForm extends Component {
   static propTypes = {
@@ -21,6 +22,10 @@ class AuthForm extends Component {
 
     if (!prevProps.asking && asking) {
       dispatch(getQuestionAjax());
+    }
+
+    if (prevProps.asking && !asking) {
+      dispatch(clearQuestion());
     }
   }
 
@@ -42,8 +47,19 @@ class AuthForm extends Component {
         open = {asking}
         onRequestClose = {changeAskStatus.bind(null, false)}
       >
-        <p>{label}</p>
+        <div>
+          {label.length ? label : (
+            <RefreshIndicator
+              size = {50}
+              left = {70}
+              top = {0}
+              loadingColor = '#FF9800'
+              status = 'loading'
+            />
+          )}
+        </div>
         <TextField
+          autoFocus
           id = 'asking-answer'
           ref = 'answerContent'
           underlineFocusStyle = {{ borderColor: orange500 }}
@@ -51,6 +67,7 @@ class AuthForm extends Component {
         <FlatButton
           icon = {<ContentSend color = {tealA700} />}
           onClick = {this._check.bind(this)}
+          disabled = {!label.length}
         />
       </Dialog>
     );

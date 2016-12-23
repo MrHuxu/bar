@@ -38,6 +38,7 @@ class CreateForm extends Component {
       >
         <TextField
           fullWidth
+          autoFocus
           ref = 'postTitle'
           floatingLabelText = 'Post Title'
         />
