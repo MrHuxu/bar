@@ -47,12 +47,12 @@ class AuthForm extends Component {
         open = {asking}
         onRequestClose = {changeAskStatus.bind(null, false)}
       >
-        <div>
+        <div style = {{ position: 'relative' }}>
           {label.length ? label : (
             <RefreshIndicator
-              size = {50}
-              left = {70}
-              top = {0}
+              size = {25}
+              left = {10}
+              top = {10}
               loadingColor = '#FF9800'
               status = 'loading'
             />
@@ -62,6 +62,7 @@ class AuthForm extends Component {
           autoFocus
           id = 'asking-answer'
           ref = 'answerContent'
+          disabled = {!label.length}
           underlineFocusStyle = {{ borderColor: orange500 }}
         />
         <FlatButton
