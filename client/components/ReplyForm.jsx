@@ -67,25 +67,4 @@ class ReplyForm extends Component {
   }
 }
 
-ReplyForm.propTypes = {
-  dispatch : PropTypes.func.isRequired,
-  post     : PropTypes.shape({
-    id        : PropTypes.string.isRquired,
-    title     : PropTypes.string.isRequired,
-    content   : PropTypes.string.isRequired,
-    createdAt : PropTypes.object.isRequired,
-    appends   : PropTypes.arrayOf(PropTypes.shape({
-      text      : PropTypes.string.isRequired,
-      createdAt : PropTypes.object.isRequired
-    })).isRequired,
-    replies : PropTypes.arrayOf(PropTypes.shape({
-      text      : PropTypes.string.isRequired,
-      replyTo   : PropTypes.number,
-      createdAt : PropTypes.object.isRequired
-    })).isRequired
-  }),
-  replyTo   : PropTypes.number,
-  quitReply : PropTypes.func.isRequired
-};
-
 export default connect()(ReplyForm);
