@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 import ContentSend from 'material-ui/svg-icons/content/send';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import { pink700, green500 } from 'material-ui/styles/colors';
 
 import { createPostAjax } from '../actions/PostActions';
@@ -36,20 +37,26 @@ class CreateForm extends Component {
         open = {creating}
         onRequestClose = {changeCreateStatus.bind(null, false)}
       >
-        <TextField
-          fullWidth
-          autoFocus
-          ref = 'postTitle'
-          floatingLabelText = 'Post Title'
-        />
+        <Tabs>
+          <Tab label = 'Editor'>
+            <TextField
+              fullWidth
+              autoFocus
+              ref = 'postTitle'
+              floatingLabelText = 'Post Title'
+            />
 
-        <TextField
-          fullWidth
-          ref = 'postContent'
-          floatingLabelText = 'Post Content'
-          multiLine
-          rows = {9}
-        />
+            <TextField
+              fullWidth
+              ref = 'postContent'
+              floatingLabelText = 'Post Content'
+              multiLine
+              rows = {9}
+            />
+
+          </Tab>
+          <Tab label = 'Preview' />
+        </Tabs>
 
         <FlatButton
           icon = {<ContentRemove color = {pink700} />}
