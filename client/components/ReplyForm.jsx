@@ -7,17 +7,7 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 import { replyPostAjax } from '../actions/PostActions';
 
-const reply = (dispatch, post, replyTo, quitReply, replyInput) => {
-  const replyingContent = replyInput.getValue().trim();
-  dispatch(replyPostAjax(post.id, {
-    replyTo : replyTo,
-    text    : replyingContent
-  }));
-  quitReply();
-  $('html, body').animate({ scrollTop: 0 });   // eslint-disable-line
-};
-
-const ReplyForm = ({ dispatch, post, replyTo, quitReply }) => {
+const ReplyForm = ({ post, replyTo, quitReply, reply }) => {
   var replyInput;
 
   return (
@@ -37,17 +27,14 @@ const ReplyForm = ({ dispatch, post, replyTo, quitReply }) => {
 
       <FlatButton
         icon = {<ContentSend />}
-        onClick = {() => {
-          reply(dispatch, post, replyTo, quitReply, replyInput);
-        }}
+        onClick = {() => reply(replyInput)}
       />
     </div>
   );
 };
 
 ReplyForm.propTypes = {
-  dispatch : PropTypes.func.isRequired,
-  post     : PropTypes.shape({
+  post : PropTypes.shape({
     id        : PropTypes.string.isRquired,
     title     : PropTypes.string.isRequired,
     content   : PropTypes.string.isRequired,
@@ -63,7 +50,23 @@ ReplyForm.propTypes = {
     })).isRequired
   }),
   replyTo   : PropTypes.number,
-  quitReply : PropTypes.func.isRequired
+  quitReply : PropTypes.func.isRequired,
+  reply     : PropTypes.func.isRequired
 };
 
-export default connect()(ReplyForm);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    reply : (replyInput) => {
+      const { post, replyTo, quitReply } = ownProps;
+      const replyingContent = replyInput.getValue().trim();
+      dispatch(replyPostAjax(post.id, {
+        replyTo : replyTo,
+        text    : replyingContent
+      }));
+      quitReply();
+      $('html, body').animate({ scrollTop: 0 });   // eslint-disable-line
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ReplyForm);

@@ -8,14 +8,7 @@ import { pink400 } from 'material-ui/styles/colors';
 
 import { appendPostAjax } from '../actions/PostActions';
 
-const append = (dispatch, post, quitAppend, appendInput) => {
-  const appendingContent = appendInput.getValue().trim();
-  dispatch(appendPostAjax(post.id, appendingContent));
-  quitAppend();
-  $('html, body').animate({ scrollTop: 0 });   // eslint-disable-line
-};
-
-const AppendForm = ({ dispatch, post, quitAppend }) => {
+const AppendForm = ({ post, quitAppend, append }) => {
   var appendInput;
 
   return (
@@ -36,17 +29,14 @@ const AppendForm = ({ dispatch, post, quitAppend }) => {
 
       <FlatButton
         icon = {<ContentSend />}
-        onClick = {() => {
-          append(dispatch, post, quitAppend, appendInput);
-        }}
+        onClick = {() => append(appendInput)}
       />
     </div>
   );
 };
 
 AppendForm.propTypes = {
-  dispatch : PropTypes.func.isRequired,
-  post     : PropTypes.shape({
+  post : PropTypes.shape({
     id        : PropTypes.string.isRquired,
     title     : PropTypes.string.isRequired,
     content   : PropTypes.string.isRequired,
@@ -61,7 +51,20 @@ AppendForm.propTypes = {
       createdAt : PropTypes.object.isRequired
     })).isRequired
   }),
-  quitAppend : PropTypes.func.isRequired
+  quitAppend : PropTypes.func.isRequired,
+  append     : PropTypes.func.isRequired
 };
 
-export default connect()(AppendForm);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    append : (appendInput) => {
+      const { post, quitAppend } = ownProps;
+      const appendingContent = appendInput.getValue().trim();
+      dispatch(appendPostAjax(post.id, appendingContent));
+      quitAppend();
+      $('html, body').animate({ scrollTop: 0 });   // eslint-disable-line
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AppendForm);
