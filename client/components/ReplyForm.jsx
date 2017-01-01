@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -7,64 +7,63 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 import { replyPostAjax } from '../actions/PostActions';
 
-class ReplyForm extends Component {
-  static propTypes = {
-    dispatch : PropTypes.func.isRequired,
-    post     : PropTypes.shape({
-      id        : PropTypes.string.isRquired,
-      title     : PropTypes.string.isRequired,
-      content   : PropTypes.string.isRequired,
-      createdAt : PropTypes.object.isRequired,
-      appends   : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        createdAt : PropTypes.object.isRequired
-      })).isRequired,
-      replies : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        replyTo   : PropTypes.number,
-        createdAt : PropTypes.object.isRequired
-      })).isRequired
-    }),
-    replyTo   : PropTypes.number,
-    quitReply : PropTypes.func.isRequired
-  };
-
-  _reply () {
-    const { dispatch, post, replyTo, quitReply } = this.props;
-    var replyingContent = this.refs.replyContent.getValue();
-    dispatch(replyPostAjax(post.id, {
-      replyTo : replyTo,
-      text    : replyingContent
-    }));
-    quitReply();
+const reply = (dispatch, post, replyTo, quitReply, replyInput) => {
+  const replyingContent = replyInput.getValue().trim();
+  dispatch(replyPostAjax(post.id, {
+    replyTo : replyTo,
+    text    : replyingContent
+  }));
+  quitReply();
   $('html, body').animate({ scrollTop: 0 });   // eslint-disable-line
-  };
+};
 
-  render () {
-    const { post, replyTo, quitReply } = this.props;
+const ReplyForm = ({ dispatch, post, replyTo, quitReply }) => {
+  var replyInput;
 
-    return (
-      <div key = {`post-${post.id}-reply-${replyTo}`}>
-        {replyTo ? <FlatButton disabled> {`to #${replyTo}`}</FlatButton> : null }
+  return (
+    <div key = {`post-${post.id}-reply-${replyTo}`}>
+      {replyTo ? <FlatButton disabled> {`to #${replyTo}`}</FlatButton> : null }
 
-        <TextField
-          autoFocus
-          ref = 'replyContent'
-          hintText = 'Reply Content'
-        />
+      <TextField
+        autoFocus
+        ref = {node => replyInput = node}
+        hintText = 'Reply Content'
+      />
 
-        <FlatButton
-          icon = {<ContentRemove />}
-          onClick = {quitReply}
-        />
+      <FlatButton
+        icon = {<ContentRemove />}
+        onClick = {quitReply}
+      />
 
-        <FlatButton
-          icon = {<ContentSend />}
-          onClick = {this._reply.bind(this)}
-        />
-      </div>
-    );
-  }
-}
+      <FlatButton
+        icon = {<ContentSend />}
+        onClick = {() => {
+          reply(dispatch, post, replyTo, quitReply, replyInput);
+        }}
+      />
+    </div>
+  );
+};
+
+ReplyForm.propTypes = {
+  dispatch : PropTypes.func.isRequired,
+  post     : PropTypes.shape({
+    id        : PropTypes.string.isRquired,
+    title     : PropTypes.string.isRequired,
+    content   : PropTypes.string.isRequired,
+    createdAt : PropTypes.object.isRequired,
+    appends   : PropTypes.arrayOf(PropTypes.shape({
+      text      : PropTypes.string.isRequired,
+      createdAt : PropTypes.object.isRequired
+    })).isRequired,
+    replies : PropTypes.arrayOf(PropTypes.shape({
+      text      : PropTypes.string.isRequired,
+      replyTo   : PropTypes.number,
+      createdAt : PropTypes.object.isRequired
+    })).isRequired
+  }),
+  replyTo   : PropTypes.number,
+  quitReply : PropTypes.func.isRequired
+};
 
 export default connect()(ReplyForm);
