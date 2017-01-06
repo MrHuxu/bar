@@ -25,17 +25,13 @@ class Post extends Component {
     })
   };
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      appending : false,
-      reply     : {
-        replying : false,
-        replyTo  : null
-      }
-    };
-  }
+  state = {
+    appending : false,
+    reply     : {
+      replying : false,
+      replyTo  : null
+    }
+  };
 
   _enterAppend () {
     this.setState({

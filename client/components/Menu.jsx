@@ -15,13 +15,10 @@ class Menu extends Component {
     editable : PropTypes.bool.isRequired
   };
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      creating : false,
-      asking   : false
-    };
-  }
+  state = {
+    creating : false,
+    asking   : false
+  };
 
   handleChange = (event, index, value) => this.setState({value});
 
