@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
-	"io"
-	"os"
 	"strconv"
 )
 
@@ -41,22 +39,11 @@ func (svr *Server) InitEngine(mode string) {
 }
 
 func (svr *Server) initEngineOnDevMode() {
-	gin.SetMode(gin.DebugMode)
-	svr.Engine = gin.New()
+	svr.Engine = gin.Default()
 }
 
 func (svr *Server) initEngineOnPrdMode() {
-	logFile, err := os.OpenFile("server/logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		fmt.Println("error opening log file")
-	}
-	defer logFile.Close()
-
-	gin.DefaultWriter = io.Writer(logFile)
-	gin.SetMode(gin.ReleaseMode)
-
-	svr.Engine = gin.New()
-	svr.Engine.Use(gin.Logger())
+	svr.Engine = gin.Default()
 	svr.Engine.StaticFile("./bundle.js", "server/built/bundle.js")
 }
 
