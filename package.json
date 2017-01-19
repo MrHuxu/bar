@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-register",
     "lint": "./node_modules/eslint/bin/eslint.js . --fix --ignore-path .gitignore --ext .jsx --ext .js; exit 0",
     "webpack-dev-server": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.dev.js --port 6789 --hot",
