@@ -2,7 +2,8 @@ export default {
   global : {
     '*' : {
       fontFamily    : "'Rambla', sans-serif",
-      letterSpacing : '0.03em'
+      letterSpacing : '0.03em',
+      wordBreak     : 'break-all'
     },
 
     '.hljs *, code' : {

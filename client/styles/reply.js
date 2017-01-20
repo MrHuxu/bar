@@ -1,20 +1,19 @@
 export default {
   container : {
-    padding : '8px 0 8px 5px'
+    padding : '10px 0 10px 6px'
   },
 
-  replyHeader : {
-    color    : '#aaa',
-    fontSize : 14,
-    margin   : '0 0 5px 0'
+  replyContent : {
+    margin   : '1px 0 9px 0',
+    fontSize : 14
   },
 
   timeChip : {
-    display : 'inline-block',
-    margin  : '0 5px 0 0'
-  },
-
-  chipLableStyle : {
+    backgroundColor : '#ddd',
+    padding         : '2px 4px 2px 4px',
+    borderRadius    : 4,
+    display         : 'inline-block',
+    margin          : '0 5px 0 0'
   },
 
   replyBtnStyle : {
