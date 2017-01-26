@@ -38,6 +38,12 @@ module.exports = {
 
   devtool : 'source-map',
 
+  externals : {
+    'jquery'    : 'jQuery',
+    'react'     : 'React',
+    'react-dom' : 'ReactDOM'
+  },
+
   plugins : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({

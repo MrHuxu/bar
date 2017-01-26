@@ -30,6 +30,13 @@ module.exports = {
     ]
   },
 
+  externals : {
+    'jquery'    : 'jQuery',
+    'react'     : 'React',
+    'react-dom' : 'ReactDOM',
+    'radium'    : 'Radium'
+  },
+
   plugins : [
     new webpack.optimize.UglifyJsPlugin({minimize: true}),
     new webpack.optimize.OccurenceOrderPlugin(),
