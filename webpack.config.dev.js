@@ -2,11 +2,7 @@ var path    = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry : [
-    'webpack-dev-server/client?http://localhost:6789', // WebpackDevServer host and port
-    'webpack/hot/dev-server', // "only" prevents reload on syntax errors
-    './client/index' // Your appʼs entry point
-  ],
+  entry : './client/index',
 
   output : {
     path       : path.join(__dirname, 'public', 'built'),
@@ -37,7 +33,9 @@ module.exports = {
   externals : {
     'jquery'    : 'jQuery',
     'react'     : 'React',
-    'react-dom' : 'ReactDOM'
+    'react-dom' : 'ReactDOM',
+    'react-addons-shallow-compare': 'React.addons.shallowCompare',
+    'react-addons-create-fragment': 'React.addons.createFragment'
   },
 
   plugins : [
