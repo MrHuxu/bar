@@ -34,8 +34,10 @@ module.exports = {
     'jquery'    : 'jQuery',
     'react'     : 'React',
     'react-dom' : 'ReactDOM',
+    'radium'    : 'Radium',
     'react-addons-shallow-compare': 'React.addons.shallowCompare',
-    'react-addons-create-fragment': 'React.addons.createFragment'
+    'react-addons-create-fragment': 'React.addons.createFragment',
+    'react-addons-transition-group': 'React.addons.TransitionGroup'
   },
 
   plugins : [
