@@ -18,7 +18,7 @@ module.exports = {
 
   module : {
     loaders : [
-      { test: /\.(js|jsx)$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader'] },
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, loaders: ['babel-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loaders: ['url-loader?limit=10000&minetype=application/font-woff'] },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loaders: ['file-loader'] },
@@ -27,13 +27,13 @@ module.exports = {
   },
 
   externals : {
-    'jquery'    : 'jQuery',
-    'react'     : 'React',
-    'react-dom' : 'ReactDOM',
-    'radium'    : 'Radium',
-    'react-addons-shallow-compare': 'React.addons.shallowCompare',
-    'react-addons-create-fragment': 'React.addons.createFragment',
-    'react-addons-transition-group': 'React.addons.TransitionGroup'
+    'jquery'                        : 'jQuery',
+    'react'                         : 'React',
+    'react-dom'                     : 'ReactDOM',
+    'radium'                        : 'Radium',
+    'react-addons-shallow-compare'  : 'React.addons.shallowCompare',
+    'react-addons-create-fragment'  : 'React.addons.createFragment',
+    'react-addons-transition-group' : 'React.addons.TransitionGroup'
   },
 
   plugins : [
