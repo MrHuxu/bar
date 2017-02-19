@@ -33,7 +33,6 @@ const Reply = ({ id, fakeId, data, enterReply, editable }) => (
       <span>
         <span
           style = {styles.timeChip}
-          labelColor = '#888'
         >
           {`#${fakeId}`}
         </span>
@@ -41,7 +40,6 @@ const Reply = ({ id, fakeId, data, enterReply, editable }) => (
         { data.replyTo ? (
           <span
             style = {styles.timeChip}
-            labelColor = '#888'
           >
             to #{data.replyTo}
           </span>
