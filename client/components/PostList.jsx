@@ -3,7 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import Post from './Post';
-import { fetchPosts } from '../actions/PostActions';
+import { fetchPosts } from '../actions/post-actions';
 import styles from '../styles/post-list';
 
 class PostList extends Component {

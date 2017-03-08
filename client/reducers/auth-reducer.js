@@ -3,7 +3,7 @@ import {
   CLEAR_QUESTION,
   VALIDATE_ANSWER,
   SHOW_NOTIFY
-} from '../actions/AuthActions';
+} from '../actions/auth-actions';
 
 export function auth (state = {
   editable      : false,

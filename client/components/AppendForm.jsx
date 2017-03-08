@@ -6,7 +6,7 @@ import ContentRemove from 'material-ui/svg-icons/content/remove';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import { pink400 } from 'material-ui/styles/colors';
 
-import { appendPostAjax } from '../actions/PostActions';
+import { appendPostAjax } from '../actions/post-actions';
 
 const AppendForm = ({ post, quitAppend, append }) => {
   var appendInput;

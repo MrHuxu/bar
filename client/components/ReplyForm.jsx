@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
-import { replyPostAjax } from '../actions/PostActions';
+import { replyPostAjax } from '../actions/post-actions';
 
 const ReplyForm = ({ post, replyTo, quitReply, reply }) => {
   var replyInput;

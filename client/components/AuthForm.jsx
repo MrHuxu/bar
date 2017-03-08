@@ -7,7 +7,7 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { orange500, tealA700 } from 'material-ui/styles/colors';
 
-import { getQuestionAjax, clearQuestion, validateAnswerAjax } from '../actions/AuthActions';
+import { getQuestionAjax, clearQuestion, validateAnswerAjax } from '../actions/auth-actions';
 
 class AuthForm extends Component {
   static propTypes = {

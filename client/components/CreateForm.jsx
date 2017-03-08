@@ -12,7 +12,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import { pink700, green500 } from 'material-ui/styles/colors';
 
 import { processElement } from '../lib/surround-words-with-spaces';
-import { createPostAjax } from '../actions/PostActions';
+import { createPostAjax } from '../actions/post-actions';
 import styles from '../styles/create-form';
 
 class CreateForm extends Component {

@@ -4,7 +4,7 @@ import {
   APPEND_POST,
   REPLY_POST,
   REFRESH_POSTS
-} from '../actions/PostActions';
+} from '../actions/post-actions';
 
 export function post (state = {
   ids      : immutable.List([]),
