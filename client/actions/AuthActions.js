@@ -1,4 +1,5 @@
 import url from 'url';
+import $ from 'jquery';
 
 export const GET_QUESTION = 'GET_QUESTION';
 export const getQuestion = (label) => {
@@ -32,31 +33,49 @@ export const showNotify = () => {
 
 export const getQuestionAjax = () => {
   return (dispatch) => {
-    var request = new Request('/auth/question', {
-      method : 'GET'
-    });
-    fetch(request).then(res => {
-      return res.json();
-    }).then(json => {
-      if ('success' === json.result) {
-        dispatch(getQuestion(json.label));
-      }
-    });
+    if (window.fetch) {
+      var request = new Request('/auth/question', {
+        method : 'GET'
+      });
+      fetch(request).then(res => {
+        return res.json();
+      }).then(json => {
+        if ('success' === json.result) {
+          dispatch(getQuestion(json.label));
+        }
+      });
+    } else {
+      $.get('/auth/question', {}, (data, status, jqXHR) => {
+        if ('success' === data.result) {
+          dispatch(getQuestion(data.label));
+        }
+      });
+    }
   };
+
 };
 
 export const validateAnswerAjax = (params) => {
   return (dispatch) => {
-    var request = new Request('/auth/answer' + url.format({ query: params }), {
-      method : 'GET'
-    });
-    fetch(request).then(res => {
-      return res.json();
-    }).then(json => {
-      if ('success' === json.result) {
-        dispatch(validateAnswer(json.valid));
-        dispatch(showNotify());
-      }
-    });
+    if (window.fetch) {
+      var request = new Request('/auth/answer' + url.format({ query: params }), {
+        method : 'GET'
+      });
+      fetch(request).then(res => {
+        return res.json();
+      }).then(json => {
+        if ('success' === json.result) {
+          dispatch(validateAnswer(json.valid));
+          dispatch(showNotify());
+        }
+      });
+    } else {
+      $.get('/auth/answer', params, (data, status, jqXHR) => {
+        if ('success' === data.result) {
+          dispatch(validateAnswer(data.valid));
+          dispatch(showNotify());
+        }
+      });
+    }
   };
 };
