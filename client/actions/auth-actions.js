@@ -1,6 +1,3 @@
-import url from 'url';
-import $ from 'jquery';
-
 import { wrappedGet } from './wrapped-actions';
 
 export const GET_QUESTION = 'GET_QUESTION';
@@ -28,9 +25,9 @@ export const showNotify = () => ({
 export const getQuestionAjax = () => {
   return dispatch => {
     wrappedGet({
-      url: '/auth/question/',
-      data: {},
-      callback: data => {
+      url      : '/auth/question/',
+      data     : {},
+      callback : data => {
         if ('success' === data.result) {
           dispatch(getQuestion(data.label));
         }
@@ -42,13 +39,13 @@ export const getQuestionAjax = () => {
 export const validateAnswerAjax = params => {
   return dispatch => {
     wrappedGet({
-      url: '/auth/answer/',
-      data: params,
-      callback: data => {
+      url      : '/auth/answer/',
+      data     : params,
+      callback : data => {
         if ('success' === data.result) {
           dispatch(validateAnswer(data.valid));
           dispatch(showNotify());
-        } 
+        }
       }
     });
   };

@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 import { wrappedGet, wrappedPost } from './wrapped-actions';
 
 export const REFRESH_POSTS = 'REFRESH_POSTS';
@@ -29,8 +27,8 @@ export const replyPost = newReply => ({
 export const fetchPosts = () => {
   return dispatch => {
     wrappedGet({
-      url: '/post/',
-      callback: data => {
+      url      : '/post/',
+      callback : data => {
         if ('success' === data.result) {
           dispatch(refreshPosts(data.posts));
         }
@@ -42,12 +40,12 @@ export const fetchPosts = () => {
 export const createPostAjax = (newTitle, newContent) => {
   return dispatch => {
     wrappedPost({
-      url: '/post/create',
-      data: {
+      url  : '/post/create',
+      data : {
         title   : newTitle,
         content : newContent
       },
-      callback: data => {
+      callback : data => {
         if ('success' === data.result) {
           dispatch(createPost(data.newPost));
         }
@@ -59,12 +57,12 @@ export const createPostAjax = (newTitle, newContent) => {
 export const appendPostAjax = (postID, appendContent) => {
   return dispatch => {
     wrappedPost({
-      url: '/post/append',
-      data: {
+      url  : '/post/append',
+      data : {
         postID : postID,
         text   : appendContent
       },
-      callback: data => {
+      callback : data => {
         if ('success' === data.result) {
           dispatch(appendPost(data.newAppend));
         }
@@ -76,13 +74,13 @@ export const appendPostAjax = (postID, appendContent) => {
 export const replyPostAjax = (postID, replyContent) => {
   return dispatch => {
     wrappedPost({
-      url: '/post/reply',
-      data: {
+      url  : '/post/reply',
+      data : {
         postID  : postID,
         text    : replyContent.text,
         replyTo : replyContent.replyTo
       },
-      callback: data => {
+      callback : data => {
         if ('success' === data.result) {
           dispatch(replyPost(data.newReply));
         }

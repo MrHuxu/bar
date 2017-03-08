@@ -14,7 +14,7 @@ export const wrappedGet = ({ url, data, callback }) => {
   }
 };
 
-export const wrappedPost = ({ url, data, callback}) => {
+export const wrappedPost = ({ url, data, callback }) => {
   if (window.fetch) {
     var request = new Request(url, {
       method : 'POST',
