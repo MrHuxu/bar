@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool, string } from 'prop-types';
 import { connect } from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
@@ -11,10 +12,10 @@ import { getQuestionAjax, clearQuestion, validateAnswerAjax } from '../actions/a
 
 class AuthForm extends Component {
   static propTypes = {
-    dispatch        : PropTypes.func.isRequired,
-    asking          : PropTypes.bool.isRequired,
-    label           : PropTypes.string.isRequired,
-    changeAskStatus : PropTypes.func.isRequired
+    dispatch        : func.isRequired,
+    asking          : bool.isRequired,
+    label           : string.isRequired,
+    changeAskStatus : func.isRequired
   };
 
   componentDidUpdate (prevProps, prevState) {

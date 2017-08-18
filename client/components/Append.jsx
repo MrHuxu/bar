@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { shape, object, string, number } from 'prop-types';
 import dateFormat from 'dateformat';
 
 import Divider from 'material-ui/Divider';
@@ -23,12 +24,12 @@ const Append = ({ append, postId, index }) => (
 );
 
 Append.propTypes = {
-  append : PropTypes.shape({
-    text      : PropTypes.string.isRequired,
-    createdAt : PropTypes.object.isRequired
+  append : shape({
+    text      : string.isRequired,
+    createdAt : object.isRequired
   }).isRequired,
-  postId : PropTypes.string.isRequired,
-  index  : PropTypes.number.isRequired
+  postId : string.isRequired,
+  index  : number.isRequired
 };
 
 export default Append;

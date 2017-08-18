@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { shape, string, object, arrayOf, number, func } from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -36,23 +37,23 @@ const AppendForm = ({ post, quitAppend, append }) => {
 };
 
 AppendForm.propTypes = {
-  post : PropTypes.shape({
-    id        : PropTypes.string.isRquired,
-    title     : PropTypes.string.isRequired,
-    content   : PropTypes.string.isRequired,
-    createdAt : PropTypes.object.isRequired,
-    appends   : PropTypes.arrayOf(PropTypes.shape({
-      text      : PropTypes.string.isRequired,
-      createdAt : PropTypes.object.isRequired
+  post : shape({
+    id        : string.isRquired,
+    title     : string.isRequired,
+    content   : string.isRequired,
+    createdAt : object.isRequired,
+    appends   : arrayOf(shape({
+      text      : string.isRequired,
+      createdAt : object.isRequired
     })).isRequired,
-    replies : PropTypes.arrayOf(PropTypes.shape({
-      text      : PropTypes.string.isRequired,
-      replyTo   : PropTypes.number,
-      createdAt : PropTypes.object.isRequired
+    replies : arrayOf(shape({
+      text      : string.isRequired,
+      replyTo   : number,
+      createdAt : object.isRequired
     })).isRequired
   }),
-  quitAppend : PropTypes.func.isRequired,
-  append     : PropTypes.func.isRequired
+  quitAppend : func.isRequired,
+  append     : func.isRequired
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

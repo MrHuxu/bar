@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Style } from 'radium';
 import { parse } from 'marked';
@@ -17,9 +18,9 @@ import styles from '../styles/create-form';
 
 class CreateForm extends Component {
   static propTypes = {
-    dispatch           : PropTypes.func.isRequired,
-    creating           : PropTypes.bool.isRequired,
-    changeCreateStatus : PropTypes.func.isRequired
+    dispatch           : func.isRequired,
+    creating           : bool.isRequired,
+    changeCreateStatus : func.isRequired
   };
 
   state = {

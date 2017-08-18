@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,8 +12,8 @@ import AuthForm from './AuthForm';
 
 class Menu extends Component {
   static propTypes = {
-    dispatch : PropTypes.func.isRequired,
-    editable : PropTypes.bool.isRequired
+    dispatch : func.isRequired,
+    editable : bool.isRequired
   };
 
   state = {
