@@ -1,36 +1,37 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { object, bool, shape, string, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
 import Radium, { Style } from 'radium';
 import { parse } from 'marked';
 import dateFormat from 'dateformat';
+
+import { processText, processElement } from '../lib/surround-words-with-spaces';
+import Append from './Append';
+import styles from '../styles/post-text';
 
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400, yellow400, amber400, orange400, deepOrange400, brown400, blueGrey400, grey400 } from 'material-ui/styles/colors';
 const Colors = [red400, purple400, indigo400, lightBlue400, cyan400, green400, lime400, yellow400, amber400, orange400, deepOrange400, brown400, blueGrey400, grey400];
 
-import { processText, processElement } from '../lib/surround-words-with-spaces';
-import Append from './Append';
-import styles from '../styles/post-text';
-
 @Radium
 class PostText extends Component {
   static propTypes = {
-    post     : PropTypes.object.isRequired,
-    editable : PropTypes.bool.isRequired,
-    params   : PropTypes.shape({
-      id        : PropTypes.string.isRquired,
-      title     : PropTypes.string.isRequired,
-      content   : PropTypes.string.isRequired,
-      createdAt : PropTypes.object.isRequired,
-      appends   : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        createdAt : PropTypes.object.isRequired
+    post     : object.isRequired,
+    editable : bool.isRequired,
+    params   : shape({
+      id        : string.isRquired,
+      title     : string.isRequired,
+      content   : string.isRequired,
+      createdAt : object.isRequired,
+      appends   : arrayOf(shape({
+        text      : string.isRequired,
+        createdAt : object.isRequired
       })).isRequired,
-      replies : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        replyTo   : PropTypes.number,
-        createdAt : PropTypes.object.isRequired
+      replies : arrayOf(shape({
+        text      : string.isRequired,
+        replyTo   : number,
+        createdAt : object.isRequired
       })).isRequired
     })
   };

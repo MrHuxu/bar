@@ -19,9 +19,9 @@ const mapStateToProps = ({ auth }) => {
 };
 
 Notify.propTypes = {
-  editable : PropTypes.bool.isRequired,
-  notify   : PropTypes.shape({
-    show : PropTypes.bool.isRequired
+  editable : bool.isRequired,
+  notify   : shape({
+    show : bool.isRequired
   })
 };
 

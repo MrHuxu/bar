@@ -15,9 +15,7 @@
   },
   "env": {
     "es6": true,
-    "browser": true,
-    "node": true,
-    "mocha": true
+    "browser": true
   },
   "globals": {
     "__DEV__": false,

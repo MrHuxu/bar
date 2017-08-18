@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { func, string, number, shape, object, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import dateFormat from 'dateformat';
 
@@ -52,15 +53,15 @@ const Reply = ({ id, fakeId, data, enterReply, editable }) => (
 );
 
 Reply.propTypes = {
-  id     : PropTypes.string,
-  fakeId : PropTypes.number.isRequired,
-  data   : PropTypes.shape({
-    text      : PropTypes.string.isRequired,
-    replyTo   : PropTypes.number,
-    createdAt : PropTypes.object.isRequired
+  id     : string,
+  fakeId : number.isRequired,
+  data   : shape({
+    text      : string.isRequired,
+    replyTo   : number,
+    createdAt : object.isRequired
   }),
-  enterReply : PropTypes.func.isRequired,
-  editable   : PropTypes.bool.isRequired
+  enterReply : func.isRequired,
+  editable   : bool.isRequired
 };
 
 const mapStateToProps = ({ auth }) => {

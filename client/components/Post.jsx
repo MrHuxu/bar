@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { shape, string, object, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
 import PostText from './PostText';
 import AppendForm from './AppendForm';
@@ -7,20 +8,19 @@ import ReplyForm from './ReplyForm';
 
 class Post extends Component {
   static propTypes = {
-    dispatch : PropTypes.func.isRequired,
-    data     : PropTypes.shape({
-      id        : PropTypes.string.isRquired,
-      title     : PropTypes.string.isRequired,
-      content   : PropTypes.string.isRequired,
-      createdAt : PropTypes.object.isRequired,
-      appends   : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        createdAt : PropTypes.object.isRequired
+    data : shape({
+      id        : string.isRquired,
+      title     : string.isRequired,
+      content   : string.isRequired,
+      createdAt : object.isRequired,
+      appends   : arrayOf(shape({
+        text      : string.isRequired,
+        createdAt : object.isRequired
       })).isRequired,
-      replies : PropTypes.arrayOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        replyTo   : PropTypes.number,
-        createdAt : PropTypes.object.isRequired
+      replies : arrayOf(shape({
+        text      : string.isRequired,
+        replyTo   : number,
+        createdAt : object.isRequired
       })).isRequired
     })
   };

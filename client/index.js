@@ -5,10 +5,10 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { rootStore } from './store';
 
+import App from './components/App';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
-import App from './components/App';
 
 render(
   <StyleRoot>

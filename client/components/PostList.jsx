@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import React, { Component } from 'react';
+import { func, string, shape, object, number } from 'prop-types';
+import { listOf, mapOf, contains } from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import Post from './Post';
@@ -8,19 +9,19 @@ import styles from '../styles/post-list';
 
 class PostList extends Component {
   static propTypes = {
-    dispatch : PropTypes.func.isRequired,
-    ids      : ImmutablePropTypes.listOf(PropTypes.string).isRequired,
-    entities : ImmutablePropTypes.mapOf(ImmutablePropTypes.contains({
-      id      : PropTypes.string.isRquired,
-      title   : PropTypes.string.isRequired,
-      appends : ImmutablePropTypes.listOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        createdAt : PropTypes.object.isRequired
+    dispatch : func.isRequired,
+    ids      : listOf(string).isRequired,
+    entities : mapOf(contains({
+      id      : string.isRquired,
+      title   : string.isRequired,
+      appends : listOf(shape({
+        text      : string.isRequired,
+        createdAt : object.isRequired
       })).isRequired,
-      replies : ImmutablePropTypes.listOf(PropTypes.shape({
-        text      : PropTypes.string.isRequired,
-        replyTo   : PropTypes.number,
-        createdAt : PropTypes.object.isRequired
+      replies : listOf(shape({
+        text      : string.isRequired,
+        replyTo   : number,
+        createdAt : object.isRequired
       }))
     })).isRequired
   };
