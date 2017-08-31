@@ -11,14 +11,14 @@ import styles from '../styles/append';
 const Append = ({ append, postId, index }) => (
   <div>
     <Divider />
-    <div key = {`post-${postId}-append-${index}`} style = {styles.container}>
+    <div key={ `post-${postId}-append-${index}` } style={ styles.container }>
       <Chip
-        style = {styles.timeChip}
-        labelColor = '#777'
+        style={ styles.timeChip }
+        labelColor='#777'
       >
         {dateFormat(append.createdAt, 'd/m/yyyy, H:MM:ss')}
       </Chip>
-      <span style = {styles.text}> {processText(append.text)} </span>
+      <span style={ styles.text }> {processText(append.text)} </span>
     </div>
   </div>
 );

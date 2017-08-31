@@ -44,32 +44,32 @@ class AuthForm extends Component {
 
     return (
       <Dialog
-        title = 'Apply Permission'
-        open = {asking}
-        onRequestClose = {changeAskStatus.bind(null, false)}
+        title='Apply Permission'
+        open={ asking }
+        onRequestClose={ changeAskStatus.bind(null, false) }
       >
-        <div style = {{ position: 'relative' }}>
+        <div style={ { position: 'relative' } }>
           {label.length ? label : (
             <RefreshIndicator
-              size = {25}
-              left = {10}
-              top = {10}
-              loadingColor = '#FF9800'
-              status = 'loading'
+              size={ 25 }
+              left={ 10 }
+              top={ 10 }
+              loadingColor='#FF9800'
+              status='loading'
             />
           )}
         </div>
         <TextField
           autoFocus
-          id = 'asking-answer'
-          ref = 'answerContent'
-          disabled = {!label.length}
-          underlineFocusStyle = {{ borderColor: orange500 }}
+          id='asking-answer'
+          ref='answerContent'
+          disabled={ !label.length }
+          underlineFocusStyle={ { borderColor: orange500 } }
         />
         <FlatButton
-          icon = {<ContentSend color = {tealA700} />}
-          onClick = {this._check.bind(this)}
-          disabled = {!label.length}
+          icon={ <ContentSend color={ tealA700 } /> }
+          onClick={ this._check.bind(this) }
+          disabled={ !label.length }
         />
       </Dialog>
     );

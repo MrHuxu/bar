@@ -11,8 +11,8 @@ class App extends Component {
   render () {
     return (
       <div>
-        <Style rules = {styles.global} />
-        <div style = {styles.rightPanel}>
+        <Style rules={ styles.global } />
+        <div style={ styles.rightPanel }>
           <Menu />
           <PostList />
           <Notify />

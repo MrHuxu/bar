@@ -5,9 +5,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 const Notify = ({ editable, notify }) => (
   <Snackbar
-    open = {notify.show}
-    message = {editable ? 'Permission Granted' : 'Wrong answer so fuck off'}
-    autoHideDuration = {3000}
+    open={ notify.show }
+    message={ editable ? 'Permission Granted' : 'Wrong answer so fuck off' }
+    autoHideDuration={ 3000 }
   />
 );
 

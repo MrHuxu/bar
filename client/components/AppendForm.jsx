@@ -13,24 +13,24 @@ const AppendForm = ({ post, quitAppend, append }) => {
   var appendInput;
 
   return (
-    <div key = {`post-${post.id}-appending`}>
+    <div key={ `post-${post.id}-appending` }>
       <TextField
         autoFocus
-        hintText = 'Append Content'
-        ref = {node => appendInput = node}
+        hintText='Append Content'
+        ref={ node => appendInput = node }
         multiLine
-        rows = {2}
-        underlineFocusStyle = {{borderColor: pink400}}
+        rows={ 2 }
+        underlineFocusStyle={ { borderColor: pink400 } }
       />
 
       <FlatButton
-        icon = {<ContentRemove />}
-        onClick = {quitAppend}
+        icon={ <ContentRemove /> }
+        onClick={ quitAppend }
       />
 
       <FlatButton
-        icon = {<ContentSend />}
-        onClick = {() => append(appendInput)}
+        icon={ <ContentSend /> }
+        onClick={ () => append(appendInput) }
       />
     </div>
   );

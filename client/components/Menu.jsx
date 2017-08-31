@@ -20,7 +20,7 @@ class Menu extends Component {
     asking   : false
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({ value });
 
   _changeCreateStatus (status) {
     this.setState({ creating: status });
@@ -36,35 +36,35 @@ class Menu extends Component {
 
     return (
       <div>
-        <Toolbar style = {{margin: 20, borderRadius: 2}}>
-          <ToolbarGroup firstChild style = {{marginLeft: 1}}>
+        <Toolbar style={ { margin: 20, borderRadius: 2 } }>
+          <ToolbarGroup firstChild style={ { marginLeft: 1 } }>
             <IconButton
-              disabled = {!editable}
-              onClick = {this._changeCreateStatus.bind(this, true)}
+              disabled={ !editable }
+              onClick={ this._changeCreateStatus.bind(this, true) }
             >
-              <ContentAdd color = {blueGrey500} />
+              <ContentAdd color={ blueGrey500 } />
             </IconButton>
           </ToolbarGroup>
           {editable ? null : (
             <ToolbarGroup>
               <RaisedButton
                 primary
-                label = 'Want to edit?'
-                style = {{marginRight: 100}}
-                onClick = {this._changeAskStatus.bind(this, true)}
+                label='Want to edit?'
+                style={ { marginRight: 100 } }
+                onClick={ this._changeAskStatus.bind(this, true) }
               />
             </ToolbarGroup>
           )}
         </Toolbar>
 
         <CreateForm
-          creating = {creating}
-          changeCreateStatus = {this._changeCreateStatus.bind(this)}
+          creating={ creating }
+          changeCreateStatus={ this._changeCreateStatus.bind(this) }
         />
 
         <AuthForm
-          asking = {asking}
-          changeAskStatus = {this._changeAskStatus.bind(this)}
+          asking={ asking }
+          changeAskStatus={ this._changeAskStatus.bind(this) }
         />
 
       </div>

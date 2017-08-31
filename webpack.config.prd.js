@@ -37,7 +37,7 @@ module.exports = {
   },
 
   plugins : [
-    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({

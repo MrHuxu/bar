@@ -13,34 +13,34 @@ import styles from '../styles/reply';
 
 const Reply = ({ id, fakeId, data, enterReply, editable }) => (
   <ListItem
-    key = {`post-${id}-comment-${fakeId}`}
-    innerDivStyle = {styles.container}
-    rightIcon = {
+    key={ `post-${id}-comment-${fakeId}` }
+    innerDivStyle={ styles.container }
+    rightIcon={
       <IconButton
-        disabled = {!editable}
-        style = {styles.replyBtnStyle}
-        iconStyle = {styles.replyIconStyle}
-        onClick = {enterReply}
+        disabled={ !editable }
+        style={ styles.replyBtnStyle }
+        iconStyle={ styles.replyIconStyle }
+        onClick={ enterReply }
       >
-        <ContentReply color = {lightBlue700} />
+        <ContentReply color={ lightBlue700 } />
       </IconButton>
     }
-    primaryText = {
-      <div style = {styles.replyContent}>
+    primaryText={
+      <div style={ styles.replyContent }>
         {processText(data.text)}
       </div>
     }
-    secondaryText = {
+    secondaryText={
       <span>
         <span
-          style = {styles.timeChip}
+          style={ styles.timeChip }
         >
           {`#${fakeId}`}
         </span>
 
         { data.replyTo ? (
           <span
-            style = {styles.timeChip}
+            style={ styles.timeChip }
           >
             to #{data.replyTo}
           </span>

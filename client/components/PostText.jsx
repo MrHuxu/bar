@@ -50,34 +50,34 @@ class PostText extends Component {
     const { id, title, createdAt, content, appends } = params;
 
     return (
-      <Card style = {{
+      <Card style={ {
         borderTop : `2px solid ${Colors[parseInt(Math.random() * 100) % Colors.length]}`
-      }}>
+      } }>
         <CardHeader
-          title = {<h3 style = {styles.title}>{processText(title)}</h3>}
-          subtitle = {dateFormat(createdAt, 'd/m/yyyy, H:MM:ss')}
+          title={ <h3 style={ styles.title }>{processText(title)}</h3> }
+          subtitle={ dateFormat(createdAt, 'd/m/yyyy, H:MM:ss') }
 
         />
 
-        <CardText style = {styles.container}>
+        <CardText style={ styles.container }>
           <Style
-            scopeSelector = '.post-text'
-            rules = {styles.postText}
+            scopeSelector='.post-text'
+            rules={ styles.postText }
           />
 
           <div
-            ref = 'textAreaElem'
-            className = 'post-text'
-            dangerouslySetInnerHTML = {{ __html: parse(content) }}
+            ref='textAreaElem'
+            className='post-text'
+            dangerouslySetInnerHTML={ { __html: parse(content) } }
           />
 
           {appends.reduce((prev, cur, index, arr) => {
             prev.push(
               <Append
-                key = {`post-${id}-append-${index}`}
-                postId = {id}
-                append = {cur}
-                index = {index}
+                key={ `post-${id}-append-${index}` }
+                postId={ id }
+                append={ cur }
+                index={ index }
               />
             );
             return prev;
@@ -87,16 +87,16 @@ class PostText extends Component {
 
         <CardActions>
           <FlatButton
-            label = 'Append'
+            label='Append'
             secondary
-            disabled = {!this.props.editable}
-            onClick = {post._enterAppend.bind(post)}
+            disabled={ !this.props.editable }
+            onClick={ post._enterAppend.bind(post) }
           />
           <FlatButton
-            label = 'Reply'
+            label='Reply'
             primary
-            disabled = {!this.props.editable}
-            onClick = {post._enterReply.bind(post, null)}
+            disabled={ !this.props.editable }
+            onClick={ post._enterReply.bind(post, null) }
           />
         </CardActions>
 

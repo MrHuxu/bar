@@ -72,26 +72,26 @@ class Post extends Component {
     const { data } = this.props;
 
     return (
-      <div style = {{margin: '0 0 30px 0'}}>
+      <div style={ { margin: '0 0 30px 0' } }>
         <PostText
-          post = {this}
-          params = {data}
+          post={ this }
+          params={ data }
         />
 
         {this.state.appending ? (
           <AppendForm
-            post = {data}
-            quitAppend = {this._quitAppend.bind(this)}
+            post={ data }
+            quitAppend={ this._quitAppend.bind(this) }
           />
         ) : null}
 
         {data.replies.reduce((prev, cur, index) => {
           prev.push(
             <Reply
-              key = {`post-${data.id}-reply-${index}`}
-              fakeId = {index + 1}
-              data = {cur}
-              enterReply = {this._enterReply.bind(this, index + 1)}
+              key={ `post-${data.id}-reply-${index}` }
+              fakeId={ index + 1 }
+              data={ cur }
+              enterReply={ this._enterReply.bind(this, index + 1) }
             />
           );
           return prev;
@@ -99,9 +99,9 @@ class Post extends Component {
 
         {this.state.reply.replying ? (
           <ReplyForm
-            post = {data}
-            replyTo = {this.state.reply.replyTo}
-            quitReply = {this._quitReply.bind(this)}
+            post={ data }
+            replyTo={ this.state.reply.replyTo }
+            quitReply={ this._quitReply.bind(this) }
           />
         ) : null}
       </div>

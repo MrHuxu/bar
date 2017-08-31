@@ -12,23 +12,23 @@ const ReplyForm = ({ post, replyTo, quitReply, reply }) => {
   var replyInput;
 
   return (
-    <div key = {`post-${post.id}-reply-${replyTo}`}>
+    <div key={ `post-${post.id}-reply-${replyTo}` }>
       {replyTo ? <FlatButton disabled> {`to #${replyTo}`}</FlatButton> : null }
 
       <TextField
         autoFocus
-        ref = {node => replyInput = node}
-        hintText = 'Reply Content'
+        ref={ node => replyInput = node }
+        hintText='Reply Content'
       />
 
       <FlatButton
-        icon = {<ContentRemove />}
-        onClick = {quitReply}
+        icon={ <ContentRemove /> }
+        onClick={ quitReply }
       />
 
       <FlatButton
-        icon = {<ContentSend />}
-        onClick = {() => reply(replyInput)}
+        icon={ <ContentSend /> }
+        onClick={ () => reply(replyInput) }
       />
     </div>
   );

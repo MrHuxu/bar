@@ -12,7 +12,7 @@ injectTapEventPlugin();
 
 render(
   <StyleRoot>
-    <Provider store = {rootStore}>
+    <Provider store={ rootStore }>
       <MuiThemeProvider>
         <App />
       </MuiThemeProvider>
