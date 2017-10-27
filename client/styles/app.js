@@ -1,31 +1,42 @@
-export default {
-  global : {
-    '*' : {
-      fontFamily    : "'Rambla', sans-serif",
-      letterSpacing : '0.03em',
-      wordBreak     : 'break-all'
-    },
-
-    '.hljs *, code' : {
-      fontFamily : '"Monaco", "MonacoRegular", "Courier New", monospace !important'
-    }
+export const global = {
+  'html, body, .full-height' : {
+    width  : '100%',
+    height : '100%'
   },
 
-  leftPanel : {
-    position : 'fixed',
-    display  : 'inline-block',
-    padding  : '10% 0 0 4%',
-    height   : '100%',
-    width    : '20%',
-    fontSize : '20px',
-    top      : '0',
-    left     : '0'
+  body : {
+    backgroundColor : '#ECECEC'
   },
 
-  rightPanel : {
-    display       : 'inline-block',
-    verticalAlign : 'top',
-    height        : '100%',
-    width         : '100%'
+  a : {
+    textDecoration : 'none'
+  },
+
+  '*' : {
+    margin    : 15,
+    textAlign : 'center'
+  },
+
+  input : {
+    padding      : 5,
+    borderRadius : 6,
+    margin       : '0 10px 0 10px'
   }
+};
+
+const verticalBlock = {
+  display       : 'inline-block',
+  verticalAlign : 'top',
+  height        : '100%',
+  overflow      : 'auto'
+};
+
+export const sider = {
+  ...verticalBlock,
+  width : '20%'
+};
+
+export const posts = {
+  ...verticalBlock,
+  width : '80%'
 };

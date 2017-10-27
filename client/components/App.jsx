@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import Radium, { Style } from 'radium';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-import Menu from './Menu';
-import PostList from './PostList';
-import Notify from './Notify';
-import styles from '../styles/app';
+import Sider from './sider';
+import Posts from './posts';
 
-@Radium
+import { sider, posts } from '../styles/app';
+
+/**
+ * Use stateful component for enabling the hot module reload
+ * HMR is not working for stateless component and it will reload the whole page
+ */
+
 class App extends Component {
   render () {
     return (
       <div>
-        <Style rules={ styles.global } />
-        <div style={ styles.rightPanel }>
-          <Menu />
-          <PostList />
-          <Notify />
+        <div style={ sider } >
+          <Sider />
+        </div>
+
+        <div style={ posts }>
+          <Posts />
         </div>
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+};
+
+const mapDispatchToProps = { push };
+
+export default connect(null, mapDispatchToProps)(App);

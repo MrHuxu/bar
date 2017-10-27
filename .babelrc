@@ -6,6 +6,16 @@
   "plugins": [
     "syntax-decorators",
     "transform-class-properties",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "transform-export-extensions",
+    "transform-object-rest-spread",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "lib",   // default: lib
+        "style": true
+      }
+    ]
   ]
 }
