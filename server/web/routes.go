@@ -24,6 +24,12 @@ func (svr *Server) RegisterRoutes() {
 	postRoutes := svr.Engine.Group("/post")
 	{
 		postRoutes.GET("/", func(c *gin.Context) { handlers.AllPosts(c, svr.Database) })
-		postRoutes.POST("/create", func(c *gin.Context) { handlers.CreatePost(c, svr.Database) })
+		postRoutes.POST("/", func(c *gin.Context) { handlers.CreatePost(c, svr.Database) })
+	}
+
+	tagRoutes := svr.Engine.Group("tag")
+	{
+		tagRoutes.GET("/", func(c *gin.Context) { handlers.AllTags(c, svr.Database) })
+		tagRoutes.POST("/", func(c *gin.Context) { handlers.CreateTag(c, svr.Database) })
 	}
 }
