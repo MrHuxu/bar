@@ -1,10 +1,17 @@
 package main
 
 import (
-	"github.com/MrHuxu/react-go-boilerplate/server/web"
+	"github.com/MrHuxu/bar/server/web"
 )
 
+var TEMPLATE_PATH = "server/web/templates/*"
+var STATIC_PATH = "server/public"
+var PORT = 13109
+var MONGO_PORT = 27017
+
 func main() {
-	server := web.NewServer(13109, "server/web/templates/*", "server/public")
-	server.Run()
+	barServer := web.NewServer(PORT, MONGO_PORT, TEMPLATE_PATH, STATIC_PATH)
+	defer barServer.DatabaseSession.Close()
+
+	barServer.Run()
 }

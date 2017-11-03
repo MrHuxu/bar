@@ -2,41 +2,45 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"gopkg.in/mgo.v2"
 	"io"
 	"os"
 	"strconv"
 )
 
-var IsReleaseMode = os.Getenv("GIN_MODE") == "release"
-var IsInsideDocker = os.Getenv("INSIDE_DOCKER") == "true"
-
 type Server struct {
-	Engine *gin.Engine
-	Port   int
+	Engine          *gin.Engine
+	Port            int
+	DatabaseSession *mgo.Session
+	Database        *mgo.Database
+	IsReleaseMode   bool
+	IsInsideDocker  bool
 }
 
-func NewServer(port int, templatePath string, staticPath string) *Server {
-	if IsReleaseMode {
-		gin.SetMode(gin.ReleaseMode)
-		gin.DisableConsoleColor()
-		logToFile()
-	}
-
+func NewServer(port int, mongoPort int, templatePath string, staticPath string) *Server {
 	server := &Server{
-		Engine: gin.Default(),
-		Port:   port,
+		Port:           port,
+		IsReleaseMode:  os.Getenv("GIN_MODE") == "release",
+		IsInsideDocker: os.Getenv("INSIDE_DOCKER") == "true",
 	}
-	server.Engine.LoadHTMLGlob(templatePath)
-	server.Engine.Static("/assets", staticPath)
-	server.RegisterRoutes()
+	server.InitEngine(templatePath, staticPath)
+	server.InitDatabase(mongoPort)
 	return server
 }
 
-func (svr *Server) Run() {
-	svr.Engine.Run(":" + strconv.Itoa(svr.Port))
+func (svr *Server) InitEngine(templatePath string, staticPath string) {
+	if svr.IsReleaseMode {
+		gin.SetMode(gin.ReleaseMode)
+		gin.DisableConsoleColor()
+		svr.logToFile()
+	}
+	svr.Engine = gin.Default()
+	svr.Engine.LoadHTMLGlob(templatePath)
+	svr.Engine.Static("/assets", staticPath)
+	svr.RegisterRoutes()
 }
 
-func logToFile() {
+func (svr *Server) logToFile() {
 	os.Mkdir("log", os.ModePerm)
 	var file *os.File
 	file, err := os.OpenFile("log/gin.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0600)
@@ -44,9 +48,22 @@ func logToFile() {
 		file, _ = os.Create("log/gin.log")
 	}
 
-	if IsInsideDocker {
+	if svr.IsInsideDocker {
 		gin.DefaultWriter = io.MultiWriter(os.Stdout, file)
 	} else {
 		gin.DefaultWriter = io.MultiWriter(file)
 	}
+}
+
+func (svr *Server) InitDatabase(mongoPort int) {
+	session, err := mgo.Dial("127.0.0.1:" + strconv.Itoa(mongoPort))
+	if err != nil {
+		panic(err)
+	}
+	svr.DatabaseSession = session
+	svr.Database = session.DB("bar")
+}
+
+func (svr *Server) Run() {
+	svr.Engine.Run(":" + strconv.Itoa(svr.Port))
 }

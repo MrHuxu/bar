@@ -1,54 +1,29 @@
 package web
 
 import (
-	"fmt"
+	"github.com/MrHuxu/bar/server/web/handlers"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{
-		"prd":   IsReleaseMode,
-		"title": "Bar",
-	})
+func (svr *Server) GenIndex() func(*gin.Context) {
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"prd":   svr.IsReleaseMode,
+			"title": "bar",
+		})
+	}
 }
 
-func (server *Server) RegisterRoutes() {
-	indexRoutes := server.Engine.Group("/")
+func (svr *Server) RegisterRoutes() {
+	indexRoutes := svr.Engine.Group("/")
 	{
-		indexRoutes.GET("/", Index)
-		indexRoutes.GET("/get", Index)
-		indexRoutes.GET("/post", Index)
-		indexRoutes.GET("/random", Index)
+		indexRoutes.GET("/", svr.GenIndex())
 	}
 
-	testRoutes := server.Engine.Group("/test")
+	postRoutes := svr.Engine.Group("/post")
 	{
-		testRoutes.GET("/", func(c *gin.Context) {
-			var key string
-			var value []string
-			for rKey, rValue := range c.Request.URL.Query() {
-				key = rKey
-				value = rValue
-			}
-			fmt.Println(key, value)
-
-			c.JSON(http.StatusOK, gin.H{
-				"requestKey":   key,
-				"requestValue": value,
-			})
-		})
-
-		testRoutes.POST("/", func(c *gin.Context) {
-			var body struct {
-				Key string `json:"key"`
-			}
-			c.BindJSON(&body)
-			fmt.Println(body)
-
-			c.JSON(http.StatusOK, gin.H{
-				"requestValue": body.Key,
-			})
-		})
+		postRoutes.GET("/", func(c *gin.Context) { handlers.AllPosts(c, svr.Database) })
+		postRoutes.POST("/create", func(c *gin.Context) { handlers.CreatePost(c, svr.Database) })
 	}
 }
