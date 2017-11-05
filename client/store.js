@@ -1,21 +1,18 @@
 import thunk from 'redux-thunk';
 import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import test from './reducers/test-reducer';
 
-export const history = createHistory();
+import post from './reducers/post-reducer';
+import tag from './reducers/tag-reducer';
+import condition from './reducers/condition-reducer';
 
 const rootReducer = combineReducers({
-  test,
-  routing : routerReducer
+  post,
+  tag,
+  condition
 });
 
-const rootMiddleware = applyMiddleware(
-  routerMiddleware(history),
-  thunk
-);
+const rootMiddleware = applyMiddleware(thunk);
 
 export default createStore(
   rootReducer,

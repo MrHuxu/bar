@@ -1,35 +1,35 @@
 import $ from 'jquery';
 import nprogress from 'nprogress';
 
-export const REFRESH_RESULT = 'REFRESH_RESULT';
-export const refreshResult = data => ({
-  type    : REFRESH_RESULT,
-  content : data
+export const REFRESH_POSTS = 'REFRESH_POSTS';
+const refreshPosts = posts => ({
+  type    : REFRESH_POSTS,
+  content : { posts }
 });
 
-export const fetchSomething = condition => {
+export const fetchPosts = conditions => {
   nprogress.start();
   return dispatch => {
-    const request = new Request(`/test?${$.param(condition)}`);
+    const request = new Request(`/post?${$.param(conditions)}`);
 
     fetch(request).then(res => res.json()).then(data => {
       nprogress.done();
-      dispatch(refreshResult(data));
+      dispatch(refreshPosts(data));
     });
   };
 };
 
-export const createSomething = condition => {
+export const createPost = data => {
   nprogress.start();
   return dispatch => {
     const request = new Request('/test/', {
       method : 'POST',
-      body   : JSON.stringify(condition)
+      body   : JSON.stringify(data)
     });
 
     fetch(request).then(res => res.json()).then(data => {
       nprogress.done();
-      dispatch(refreshResult(data));
+      dispatch(refreshPosts(data));
     });
   };
 };
