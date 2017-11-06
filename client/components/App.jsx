@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 import Sider from './sider';
 import Posts from './posts';
@@ -28,9 +27,4 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-};
-
-const mapDispatchToProps = { push };
-
-export default connect(null, mapDispatchToProps)(App);
+export default connect()(App);

@@ -11,7 +11,7 @@ type Post struct {
 	Title     string        `json:"title"`
 	Content   string        `json:"content"`
 	Score     int           `json:"score"`
-	CreatedAt time.Time     `json:"createdAt"`
+	CreatedAt time.Time     `bson:"createdAt" json:"createdAt"`
 
 	Tags []*Tag `json:"tags"`
 }
