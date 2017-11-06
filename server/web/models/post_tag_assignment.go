@@ -6,6 +6,6 @@ import (
 
 type PostTagAssignment struct {
 	ID     bson.ObjectId `bson:"_id,omitempty" json:"id"`
-	PostID bson.ObjectId `bson:"post_id,omitempty" json:"postID"`
-	TagID  bson.ObjectId `bson:"tag_id,omitempty" json:"tagID"`
+	PostID bson.ObjectId `bson:"postID,omitempty" json:"postID"`
+	TagID  bson.ObjectId `bson:"tagID,omitempty" json:"tagID"`
 }
