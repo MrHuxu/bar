@@ -8,7 +8,7 @@ export default (state = {
 }, action) => {
   const newState = Object.assign({}, state);
   const { type, content } = action;
-  const { posts } = content;
+  const { posts } = content || {};
 
   switch (type) {
   case REFRESH_POSTS:

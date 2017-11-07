@@ -7,19 +7,19 @@ const refreshPosts = posts => ({
   content : { posts }
 });
 
-export const fetchPosts = conditions => {
+export const fetchPosts = (conditions = {}) => {
   nprogress.start();
   return dispatch => {
     const request = new Request(`/post?${$.param(conditions)}`);
 
-    fetch(request).then(res => res.json()).then(data => {
+    fetch(request).then(res => res.json()).then(({ posts }) => {
       nprogress.done();
-      dispatch(refreshPosts(data));
+      dispatch(refreshPosts(posts));
     });
   };
 };
 
-export const createPost = data => {
+export const createPost = (data = {}) => {
   nprogress.start();
   return dispatch => {
     const request = new Request('/test/', {
@@ -27,9 +27,9 @@ export const createPost = data => {
       body   : JSON.stringify(data)
     });
 
-    fetch(request).then(res => res.json()).then(data => {
+    fetch(request).then(res => res.json()).then(({ posts }) => {
       nprogress.done();
-      dispatch(refreshPosts(data));
+      dispatch(refreshPosts(posts));
     });
   };
 };

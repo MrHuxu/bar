@@ -61,7 +61,7 @@ func (svr *Server) InitDatabase(mongoPort int) {
 		panic(err)
 	}
 	svr.DatabaseSession = session
-	svr.Database = session.DB("bar")
+	svr.Database = session.DB("bar-new")
 }
 
 func (svr *Server) Run() {

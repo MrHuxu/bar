@@ -1,13 +1,10 @@
 import React from 'react';
-import { Timeline, Button, Icon } from 'antd';
-const { Item } = Timeline;
+import { Button, Icon } from 'antd';
 
 const AddPost = () => (
-  <Item>
-    <Button>
-      <Icon type="plus" />
-    </Button>
-  </Item>
+  <Button>
+    <Icon type="plus" />
+  </Button>
 );
 
 export default AddPost;
