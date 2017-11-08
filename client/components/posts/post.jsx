@@ -5,8 +5,7 @@ import { post } from '../../utils/prop-types';
 
 const Post = ({ data }) => (
   <div>
-    { data.id }
-    <div>{ (new Date(data.createdAt)).toLocaleString() }</div>
+    <div>{ data.createdAt.toLocaleString() }</div>
     <div dangerouslySetInnerHTML={ { __html: parse(data.content) } } />
   </div>
 );

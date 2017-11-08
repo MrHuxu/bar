@@ -1,4 +1,4 @@
-import { shape, string, number, arrayOf } from 'prop-types';
+import { shape, string, number, arrayOf, instanceOf } from 'prop-types';
 
 export * from 'prop-types';
 
@@ -10,5 +10,11 @@ export const post = shape({
   content   : string.isRequired,
   score     : number.isRequired,
   tags      : arrayOf(string).isRequired,
-  createdAt : string.isRequired
+  createdAt : instanceOf(Date)
+});
+
+export const tag = shape({
+  id        : string.isRequired,
+  label     : string.isRequired,
+  createdAt : instanceOf(Date)
 });

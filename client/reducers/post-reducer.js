@@ -14,7 +14,10 @@ export default (state = {
   case REFRESH_POSTS:
     newState.ids = posts.map(post => post.id);
     newState.entities = posts.reduce((pre, post) => {
-      pre[post.id] = post;
+      pre[post.id] = {
+        ...post,
+        createdAt : new Date(post.createdAt)
+      };
       return pre;
     }, {});
     break;
