@@ -49,6 +49,7 @@
     "jquery": "^3.2.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "marked": "^0.3.6",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
     "radium": "^0.19.5",
